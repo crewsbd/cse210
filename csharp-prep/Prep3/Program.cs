@@ -33,7 +33,7 @@ class Program
             } while(magicNumber != guess);
         Console.WriteLine($"You guessed it!\nIt took you {guesses} guesses.");
 
-        Console.Write("Do you want to play again?");
+        Console.Write("Do you want to play again? ");
         answer = Console.ReadLine();
         } while(answer.ToLower() == "yes");
     }
