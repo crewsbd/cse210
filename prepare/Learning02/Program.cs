@@ -5,7 +5,7 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("");
-        
+
         Resume myResume = new Resume("Brian Crews");
         myResume.AddJob("BYUI", "Master of All", 1995, 2023);
         
