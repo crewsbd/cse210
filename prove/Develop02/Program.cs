@@ -1,5 +1,5 @@
 /* Exceeding Requirements:
-    - Boxit static class to simplify formatting and display of text
+    - Made Boxit static class to simplify formatting and display of text
     - Added more valid menu option keys. The first letter of the menu line works.
     - Used CSV files
     - Loaded prompts from a file
