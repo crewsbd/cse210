@@ -9,7 +9,7 @@ class Journal
     public Journal(string name)
     {
         _entries = new List<Entry>();
-        List<string> promptList = File.ReadAllLines("Prompts.txt").ToList();
+        List<string> promptList = File.ReadAllLines("prompts.txt").ToList();
         _prompts = new Prompts(promptList);
         _name = name;
         return;
