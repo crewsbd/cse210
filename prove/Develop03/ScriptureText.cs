@@ -86,7 +86,7 @@ public class ScriptureText
                 } while (continueLoop);
 
             }
-            if (returnVerses.Count > 0) //Getting 0 lists for some reason.
+            if (returnVerses.Count > 0) //Getting 0 lists for some reason. Bandaid.
             {
                 this._lastText = returnVerses;
                 return returnVerses;
