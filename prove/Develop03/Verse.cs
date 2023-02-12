@@ -8,7 +8,7 @@ public class Verse
     private List<Word> _words;
     private Random _random;
 
-    
+
     public Verse(string text, string book, int chapterNum, int verseNum)
     {
         _book = book;
@@ -18,7 +18,7 @@ public class Verse
         _words = new List<Word>();
         _random = new Random(DateTime.Now.Millisecond);
         string[] splitWords = text.Split(' ');
-        foreach(string word in splitWords)
+        foreach (string word in splitWords)
         {
             _words.Add(new Word(word.Trim()));
         }
@@ -31,6 +31,10 @@ public class Verse
     public int Chapter
     {
         get => _chapterNumber;
+    }
+    public int VerseNumber
+    {
+        get => _verseNumber;
     }
 
     public Boolean AllHidden()
@@ -50,14 +54,14 @@ public class Verse
     }
     public void HideNumber(int number)
     {
-        for(int i = 0; i < number; i++) 
+        for (int i = 0; i < number; i++)
         {
             int wordToHide = _random.Next(_words.Count());
-            if(!_words[wordToHide].Hidden())
+            if (!_words[wordToHide].Hidden())
             {
                 _words[wordToHide].Hide();
             }
-            else if(! this.AllHidden())
+            else if (!this.AllHidden())
             {
                 i--;
             }
@@ -66,7 +70,7 @@ public class Verse
     public string Serialize()
     {
         string newString = $"{_verseNumber.ToString()}.  ";
-        for(int word = 0; word < _words.Count(); word++)
+        for (int word = 0; word < _words.Count(); word++)
         {
             newString += _words[word].GetWord() + " ";
         }
