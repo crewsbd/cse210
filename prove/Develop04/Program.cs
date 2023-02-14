@@ -37,10 +37,9 @@ class Program
             }
 
             Console.WriteLine($"  {activities.Count + 1}. Quit\nSelect a choice from the menu:");
-            string response = Console.ReadLine();
             int responseNumber = 0;
-            Boolean parsed = int.TryParse(response, out responseNumber);
-            if (response != "4" && parsed && responseNumber < activities.Count)
+            Boolean parsed = int.TryParse(Console.ReadLine(), out responseNumber);
+            if (responseNumber != activities.Count + 1 && parsed && responseNumber < activities.Count + 1)
             {
                 activities[responseNumber - 1].Launch();
             }

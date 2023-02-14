@@ -5,7 +5,7 @@ public class ReflectionActivity : Activity
     private Random _randomNumber;
     public ReflectionActivity()
     {
-        _name = "Reflection Activity";
+        _name = "Reflecting Activity";
         _description = "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.";
         _messages = new string[]
         {
@@ -25,8 +25,8 @@ public class ReflectionActivity : Activity
             "What could you learn from this experience that applies to other situations?",
             "What did you learn about yourself through this experience?",
             "How can you keep this experience in mind in the future?"
-            };
-        _randomNumber = new Random(DateTime.Today.Microsecond);
+        };
+        _randomNumber = new Random(DateTime.Today.Millisecond);
     }
 
     protected override void RunActivity() //Unique activity code
