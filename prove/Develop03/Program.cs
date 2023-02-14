@@ -1,4 +1,4 @@
-// Exceeding: Load scriptures from files. Parse text using regular expressions.
+// Exceeding Requirements: Load scriptures from files. Parsed text using regular expressions.
 using System;
 
 class Program
