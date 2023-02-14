@@ -17,16 +17,38 @@ using System;
 
 class Program
 {
-    string menuString = "Menu Options:\n   1. Start breathing activity\n" +
-        "   2. Start relecting activity\n" +
-        "   3. Start listing Activity" +
-        "   4. Quit";
-    string prompt = "Select a choice from the menu";
     static void Main(string[] args)
     {
+        List<Activity> activities = new List<Activity>();
+        activities.Add(new BreathingActivity());
+        activities.Add(new ReflectionActivity());
+        activities.Add(new ListingActivity());
 
-        Console.WriteLine("Test animate:\n");
-        BreathingActivity ba = new BreathingActivity();
-        ba.Launch();
+        Boolean continueLoop = true;
+
+
+        do
+        {
+            Console.Clear();
+            Console.WriteLine("Menu Options:");
+            for (int i = 0; i < activities.Count; i++)
+            {
+                Console.WriteLine("  " + (i + 1).ToString() + ". Start " + activities[i].Name);
+            }
+
+            Console.WriteLine($"  {activities.Count + 1}. Quit\nSelect a choice from the menu:");
+            string response = Console.ReadLine();
+            int responseNumber = 0;
+            Boolean parsed = int.TryParse(response, out responseNumber);
+            if (response != "4" && parsed && responseNumber < activities.Count)
+            {
+                activities[responseNumber - 1].Launch();
+            }
+            else if (responseNumber == activities.Count + 1)
+            {
+                continueLoop = false;
+            }
+
+        } while (continueLoop);
     }
 }

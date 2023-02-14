@@ -3,40 +3,23 @@ public class BreathingActivity : Activity
 
     public BreathingActivity()
     {
-        Name = "Breathing Activity";
-        Description = "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.";
+        _name = "Breathing Activity";
+        _description = "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.";
     }
-    public void Launch()
-    {
-        Boolean continueLoop = true;
-        DisplayStartingMessage();
-        string durationString = Console.ReadLine();
-        int duration = int.Parse(durationString);
-       
-        Pause(5);
+
+    protected override void RunActivity()
+    {   int durationCounter = _duration;
         do
         {
-            Console.Write("Breathe in...");
+            Console.Write("\nBreathe in... ");
             CountDown(5);
-            duration -= 5;
-            if(duration <= 0)
-            {
-                continueLoop = false;
-            }
-        } while (continueLoop);
-
-
+            durationCounter -= 5;
+            Console.Write("\nBreathe out...");
+            CountDown(5);
+            durationCounter -= 5;
+        } while (durationCounter > 0);
     }
-    private void CountDown(int seconds)
-    {
-        do
-        {
-            string message = $"{seconds}";
-            //Console.Write($"{message} ");
-            Pause(1, message);
-            //Console.Write("".PadLeft(message.Length-1, '\b'));
-            seconds -= 1;
 
-        } while (seconds >= 0);
-    }
+    //RunActivity helpers.
+    
 }
