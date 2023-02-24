@@ -10,10 +10,7 @@ DON'T
 - Track stats
 - Track history(prompts etc.)
 */
-
 using System;
-
-
 
 class Program
 {
@@ -23,10 +20,7 @@ class Program
         activities.Add(new BreathingActivity());
         activities.Add(new ReflectionActivity());
         activities.Add(new ListingActivity());
-
         Boolean continueLoop = true;
-
-
         do
         {
             Console.Clear();

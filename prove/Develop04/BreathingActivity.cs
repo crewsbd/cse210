@@ -1,6 +1,5 @@
 public class BreathingActivity : Activity
 {
-
     public BreathingActivity()
     {
         _name = "Breathing Activity";
@@ -8,7 +7,8 @@ public class BreathingActivity : Activity
     }
 
     protected override void RunActivity()
-    {   int durationCounter = _duration;
+    {   
+        int durationCounter = _duration;
         do
         {
             Console.Write("\nBreathe in... ");

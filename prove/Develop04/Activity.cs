@@ -3,25 +3,28 @@ public abstract class Activity
     protected string _name;
     protected string _description;
     protected int _duration;
+    protected int _totalTime;
 
     public Activity()
     {
         _name = "Generic Activity";
         _description = "This activity is not defined.";
         _duration = 0;
+        _totalTime = 0;
     }
     public string Name
     {
         get => _name;
     }
-    public string Description
+    /*public string Description
     {
         get => _description;
-    }
+    } */
 
     public virtual void Launch()
     {
         DisplayStartingMessage();
+        _totalTime += _duration; //Set in DisplayStartingMessage
         Pause(5);
         Console.Clear();
         RunActivity();
@@ -31,13 +34,16 @@ public abstract class Activity
     protected abstract void RunActivity();
     protected void DisplayStartingMessage()
     {
-        Console.WriteLine($"Welcome to the {_name}.\n\n{_description}\n");
+        int seconds = _totalTime % 60;
+        int minutes = _totalTime / 60;
+        int hours = _totalTime / 60 / 60;
+        
+        Console.WriteLine($"Welcome to the {_name}.\n\n{_description}\nYou have spent {(hours > 0 ? hours : "")}{(hours > 0 ? " hours, " : "")}{(minutes > 0 || hours > 0 ? minutes : "")}{(minutes > 0 || hours > 0 ? " minutes and " : "")}{seconds} seconds in this activity.");
         do
         {
             Console.WriteLine("How long, in seconds, would you like for your session?");
         } while (!(int.TryParse(Console.ReadLine(), out _duration)));
         Console.WriteLine("Get Ready...");
-        Pause(5);
     }
     protected void DisplayEndingMessage()
     {
@@ -65,6 +71,7 @@ public abstract class Activity
 
         do
         {
+            Thread.Sleep(frameDelay/10000); //Give it some finer granularity.
             newTime = DateTime.Now.Ticks;
             deltaTime = (int)(newTime - oldTime);
             oldTime = newTime;
@@ -96,9 +103,7 @@ public abstract class Activity
         do
         {
             string timerString = $"{seconds}";
-            //Console.Write($"{message} ");
             Pause(1, timerString);
-            //Console.Write("".PadLeft(message.Length-1, '\b'));
             seconds -= 1;
 
         } while (seconds >= 0);
