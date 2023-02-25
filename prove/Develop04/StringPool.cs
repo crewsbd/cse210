@@ -20,7 +20,7 @@ public class StringPool
         ResetUnused();
     }
 
-    public string getRandom()
+    public string GetRandom()
     {
         if(_unused.Count == 0)
         {
