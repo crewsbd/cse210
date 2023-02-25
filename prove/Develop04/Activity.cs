@@ -20,6 +20,7 @@ public abstract class Activity
     {
         DisplayStartingMessage();
         _totalTime += _duration; //Set in DisplayStartingMessage
+        //Console.Write("Test Pause 60 second: ");
         Pause(5);
         Console.Clear();
         RunActivity();
@@ -30,7 +31,7 @@ public abstract class Activity
     protected void DisplayStartingMessage()
     {
         int seconds = _totalTime % 60;
-        int minutes = _totalTime / 60;
+        int minutes = _totalTime / 60 % 60;
         int hours = _totalTime / 60 / 60;
 
         Console.WriteLine($"Welcome to the {_name}.\n\n{_description}\nYou have spent {(hours > 0 ? hours : "")}{(hours > 0 ? " hours, " : "")}{(minutes > 0 || hours > 0 ? minutes : "")}{(minutes > 0 || hours > 0 ? " minutes and " : "")}{seconds} seconds in this activity.");
@@ -42,13 +43,13 @@ public abstract class Activity
     }
     protected void DisplayEndingMessage()
     {
-        Console.WriteLine($"Well done!!\n\nYou have completed another {_duration} seconds of the {_name}.");
+        Console.WriteLine($"\nWell done!!\n\nYou have completed another {_duration} seconds of the {_name}.");
         Console.ReadLine();
     }
 
-    protected void Pause(int duration, string icon = "*")
+    protected void Pause(int duration, string icon = "*", Boolean cleanup = false)
     {
-        duration *= 10000000; //10,000,000 in a second
+        duration *= (int)TimeSpan.TicksPerSecond;
 
         long oldTime = DateTime.Now.Ticks;
         long newTime = DateTime.Now.Ticks;
@@ -62,11 +63,11 @@ public abstract class Activity
         string[] frames = { $"{icon}==------",$"={icon}=------",$"=={icon}------",$"-=={icon}-----",$"--=={icon}----",
         $"---=={icon}---", $"----=={icon}--", $"-----=={icon}-", $"------=={icon}",
         $"------={icon}=", $"------{icon}==", $"-----{icon}==-", $"----{icon}==--", $"---{icon}==---", $"--{icon}==----",$"-{icon}==-----"};
-        int frameDelay = 10000000 / frames.Count() + 6;
+        int frameDelay = (int)TimeSpan.TicksPerSecond / frames.Count(); //1 second/number of frames
 
         do
         {
-            //Thread.Sleep(frameDelay / 10000); //Give it some finer granularity.
+            Thread.Sleep(frameDelay / (int)TimeSpan.TicksPerMillisecond / 2); //Sleep for half a frame.
             newTime = DateTime.Now.Ticks;
             deltaTime = (int)(newTime - oldTime);
             oldTime = newTime;
@@ -85,22 +86,29 @@ public abstract class Activity
                     frameIndex = 0;
                 }
             }
-            if (duration <= 0)
+            if (duration < 0)
             {
                 continueLoop = false;
-                Console.Write("".PadLeft(frames[frameIndex].Length, ' '));
-                Console.Write("".PadLeft(frames[frameIndex].Length, '\b'));
+                if (cleanup)
+                {
+                    Console.Write("".PadLeft(frames[frameIndex].Length, ' '));
+                    Console.Write("".PadLeft(frames[frameIndex].Length, '\b'));
+                }
+
             }
         } while (continueLoop);
     }
     protected void CountDown(int seconds)
     {
-        do
+        string timerString;
+        while (seconds > 1)
         {
-            string timerString = $"{seconds}";
+            timerString = $"{seconds}";
             Pause(1, timerString);
             seconds -= 1;
 
-        } while (seconds >= 0);
+        }
+        Pause(1, "0", true); //Prevents blinking countdown
+
     }
 }
