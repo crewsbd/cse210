@@ -16,11 +16,6 @@ public abstract class Activity
     {
         get => _name;
     }
-    /*public string Description
-    {
-        get => _description;
-    } */
-
     public virtual void Launch()
     {
         DisplayStartingMessage();
@@ -37,7 +32,7 @@ public abstract class Activity
         int seconds = _totalTime % 60;
         int minutes = _totalTime / 60;
         int hours = _totalTime / 60 / 60;
-        
+
         Console.WriteLine($"Welcome to the {_name}.\n\n{_description}\nYou have spent {(hours > 0 ? hours : "")}{(hours > 0 ? " hours, " : "")}{(minutes > 0 || hours > 0 ? minutes : "")}{(minutes > 0 || hours > 0 ? " minutes and " : "")}{seconds} seconds in this activity.");
         do
         {
@@ -71,7 +66,7 @@ public abstract class Activity
 
         do
         {
-            Thread.Sleep(frameDelay/10000); //Give it some finer granularity.
+            //Thread.Sleep(frameDelay / 10000); //Give it some finer granularity.
             newTime = DateTime.Now.Ticks;
             deltaTime = (int)(newTime - oldTime);
             oldTime = newTime;

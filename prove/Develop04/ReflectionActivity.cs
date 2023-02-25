@@ -1,8 +1,5 @@
 public class ReflectionActivity : Activity
 {
-    //private string[] _messages;
-    private string[] _messages;
-    private string[] _prompts;
     private StringPool _messagePool;
     private StringPool _promptPool;
 
@@ -39,13 +36,13 @@ public class ReflectionActivity : Activity
     protected override void RunActivity() //Unique activity code
     {
         int durationCounter = _duration;
-        Console.WriteLine($"Consider the following prompt:\n\n---{_messages[_randomNumber.Next(_messages.Count() - 1)]}---\n\nWhen you have something in mind, press enter to continue.");
+        Console.WriteLine($"Consider the following prompt:\n\n---{_messagePool.getRandom()}---\n\nWhen you have something in mind, press enter to continue.");
         Console.ReadLine();
         Console.WriteLine("Now ponder on each of the following questions as they related to this experience.\nYou may begin in:");
         CountDown(5);
         do
         {
-            Console.Write($">{_prompts[_randomNumber.Next(_prompts.Count()-1)]}: ");
+            Console.Write($">{_promptPool.getRandom()}: ");
             CountDown(10);
             durationCounter -= 10;
             Console.WriteLine();
