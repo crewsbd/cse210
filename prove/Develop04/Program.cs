@@ -2,8 +2,7 @@
 -Tracked how long each activity has been used and displayed that to the user.
 -Prevented repeated prompts and messages via StringPool class
 -Changed animation and made it more parametric and precise
--The menu is generated and activities launched dynamically. The list of activities can be easily expanded with a single line.
-
+-The menu is generated and activities launched dynamically. The list of activities can be easily expanded with a single line. */
 
 /*
 - Menu(of activities)

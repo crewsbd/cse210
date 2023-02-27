@@ -1,0 +1,12 @@
+@startuml Test
+
+class Brian {
+    +stuff
+    -Thistle
+    #protected
+}
+class person {
+    + plusssss
+}
+
+Brian <|-- person
