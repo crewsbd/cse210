@@ -1,6 +1,6 @@
-@startuml Test
+@startuml Eternal Quest
 
-class Brian {
+class Goal {
     +stuff
     -Thistle
     #protected
