@@ -40,6 +40,41 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop05 World!");
+        Boolean continueLoop = true;
+        string option = "";
+        do
+        {
+            Console.Write("Menu Options\n1. Create New Goal\n2. List Goals\n3.Save Goals\n4.Load Goals\n5. Record Event\n6. Quit\nSelect a choice from the menu: ");
+            option = Console.ReadLine();
+            switch (option)
+            {
+                case "1":
+                { 
+                    break;
+                }
+                case "2":
+                {
+                    break;
+                }
+                case "3":
+                {
+                    break;
+                }
+                case "4":
+                {
+                    break;
+                }
+                case "5":
+                {
+                    break;
+                }
+                case "6":
+                {
+                    continueLoop = false;
+                    break;
+                }
+            }
+        }
+        while(continueLoop);
     }
 }

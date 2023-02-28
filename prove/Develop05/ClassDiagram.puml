@@ -1,0 +1,27 @@
+@startuml Eternal Quest
+class Program {
+    +Main(args:string):void
+}
+abstract class Goal {
+    -name
+    #timesCompleted
+    +Serialize():string
+}
+class SimpleGoal {
+    + plusssss
+}
+class EternalGoal {
+
+}
+class ChecklistGoal {
+
+}
+
+skinparam groupInheritance 2
+
+
+Goal <|-- SimpleGoal
+Goal <|-- EternalGoal
+Goal <|-- ChecklistGoal
+
+Program "1" o-- "many" Goal

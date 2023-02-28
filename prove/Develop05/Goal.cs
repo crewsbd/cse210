@@ -1,16 +1,21 @@
 public abstract class Goal
 {
-    private string _name;
-    private Boolean _completed;
+    protected string _name;
+    protected string _description;
+    protected Boolean _completed;
+    protected int _points;
 
-    public Goal(string newName)
+    public Goal(string name, string description, int points)
     {   
-        _name = newName;
+        _name = name;
+        _description = description;
+        _points = points;
         _completed = false;
     }
-    public string Serialize()
-    {
-        return "";
-    }
-
+    public abstract string Serialize();
+    public abstract Boolean Completed();
+    public abstract int GetTotalPoints();
+    public abstract void MarkComplete();
+  
+    
 }
