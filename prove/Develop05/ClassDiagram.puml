@@ -1,24 +1,35 @@
 @startuml Eternal Quest
-class Program {
-    +Main(args:string):void
+static class Program {
+    +{static} goals: List<Goal>
+    +{static} Main(args:string): void
+    +{static} CreateGoal(): void
+    +{static} ReadInt(): int
 }
 abstract class Goal {
-    -name
-    #timesCompleted
-    +Serialize():string
+    #name: string
+    #description: string
+    #completed: Boolean
+    #points: int
+    +Goal(name:string, description:string, points:int)
+    +{abstract} Serialize(): string
+    +{abstract} Completed(): Boolean
+    +{abstract} GetTotalPoints(): int
+    +{abstract} MarkComplete(): void
 }
 class SimpleGoal {
-    + plusssss
+    +SimpleGoal(name: string, description: string, points: int)
 }
 class EternalGoal {
-
+    -timesCompleted: int
+    +EternalGoal(name: string, description: string, points: int)
 }
 class ChecklistGoal {
+    -bonus: int
+    -completions: int
+    -targetCompletions: int
+    +ChecklistGoal(name: string, description: string, points:int, targetCompletions:int, bonus:int )
 
 }
-
-skinparam groupInheritance 2
-
 
 Goal <|-- SimpleGoal
 Goal <|-- EternalGoal

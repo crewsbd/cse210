@@ -41,12 +41,11 @@ class Program
     static List<Goal> goals = new List<Goal>();
     static void Main(string[] args)
     {
-
         Boolean continueLoop = true;
         string option = "";
         do
         {
-            Console.Write("Menu Options\n1. Create New Goal\n2. List Goals\n3.Save Goals\n4.Load Goals\n5. Record Event\n6. Quit\nSelect a choice from the menu: ");
+            Console.Write("Menu Options\n1. Create New Goal\n2. List Goals\n3. Save Goals\n4. Load Goals\n5. Record Event\n6. Quit\nSelect a choice from the menu: ");
             option = Console.ReadLine();
             switch (option)
             {
@@ -112,6 +111,13 @@ class Program
                     Console.WriteLine("Unknown option");
                     break;
                 }
+        }
+    }
+    static void ListGoals()
+    {
+        foreach(Goal goal in goals)
+        {
+            Console.WriteLine(goal.Serialize());
         }
     }
     static int ReadInt()

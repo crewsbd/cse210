@@ -9,7 +9,6 @@ public class EternalGoal : Goal
     public override string Serialize()
     {
         string returnString = $"☒ {_name} ({_description})";
-
         return $"{returnString}";
     }
     public override int GetTotalPoints()

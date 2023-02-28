@@ -16,6 +16,4 @@ public abstract class Goal
     public abstract Boolean Completed();
     public abstract int GetTotalPoints();
     public abstract void MarkComplete();
-  
-    
 }
