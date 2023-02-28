@@ -38,8 +38,10 @@ using System;
 
 class Program
 {
+    static List<Goal> goals = new List<Goal>();
     static void Main(string[] args)
     {
+
         Boolean continueLoop = true;
         string option = "";
         do
@@ -49,32 +51,82 @@ class Program
             switch (option)
             {
                 case "1":
-                { 
-                    break;
-                }
+                    {
+                        CreateGoal();
+                        break;
+                    }
                 case "2":
-                {
-                    break;
-                }
+                    {
+                        ListGoals();
+                        break;
+                    }
                 case "3":
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
                 case "4":
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
                 case "5":
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
                 case "6":
-                {
-                    continueLoop = false;
-                    break;
-                }
+                    {
+                        continueLoop = false;
+                        break;
+                    }
             }
         }
-        while(continueLoop);
+        while (continueLoop);
+    }
+    static void CreateGoal()
+    {
+        Console.Write("The types of goals are:\n1. Simple Goal\n2. Eternal Goal\n3. Checklist Goal\nWhich type of goal would you like to create? ");
+        string option = Console.ReadLine();
+        switch (option)
+        {
+            case "1":
+                {
+                    Console.Write("What is the name of your goal? ");
+                    string name = Console.ReadLine();
+                    Console.Write("What is a short description of your goal? ");
+                    string description = Console.ReadLine();
+                    Console.Write("What is the amount of points associated with this goal?");
+                    int points = ReadInt();
+
+                    goals.Add(new SimpleGoal(name, description, points));
+                    break;
+                }
+            case "2":
+                {
+                    break;
+                }
+            case "3":
+                {
+                    break;
+                }
+            default:
+                {
+                    Console.WriteLine("Unknown option");
+                    break;
+                }
+        }
+    }
+    static int ReadInt()
+    {
+        int value;
+        do
+        {
+            if (int.TryParse(Console.ReadLine(), out value))
+            {
+                return value;
+            }
+            else
+            {
+                Console.WriteLine("Not an integer.");
+            }
+        } while (true);
     }
 }
