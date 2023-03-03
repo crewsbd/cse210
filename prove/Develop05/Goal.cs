@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 public abstract class Goal
 {
     protected string _name;
@@ -16,4 +17,8 @@ public abstract class Goal
     public abstract Boolean IsComplete();
     public abstract int GetTotalPoints();
     public abstract void RecordEvent();
+    public abstract string EncodeObject();
+    public abstract void DecodeObject(string objectString);
+    public abstract string GoalType();
+
 }

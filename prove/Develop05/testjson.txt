@@ -1,0 +1,7 @@
+{type:"SimpleGoal",name:"A super goal",description:"This is a description",points:"20"}
+{type:"SimpleGoal",name:"A super goal",description:"This is a description",points:"20"}
+{type:"SimpleGoal",name:"A super goal",description:"This is a description",points:"20"}
+
+regex
+
+\{type:"(?<type>[A-Za-z]*)",name:"(?<name>[A-Za-z ]*)",description:"(?<description>[A-Za-z ,'"]*)",points:"(?<points>[0-9]*)"\}
