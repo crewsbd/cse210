@@ -7,7 +7,7 @@ public class SimpleGoal : Goal
     {
         return $"{(_completed?"☑":"☒")} {_name}({_description})";
     }
-    public override bool Completed()
+    public override bool IsComplete()
     {
         if(_completed)
         {
@@ -20,7 +20,7 @@ public class SimpleGoal : Goal
     }
     public override int GetTotalPoints()
     {
-        if(Completed())
+        if(IsComplete())
         {
             return _points;
         }
@@ -29,7 +29,7 @@ public class SimpleGoal : Goal
             return 0;
         }
     }
-    public override void MarkComplete()
+    public override void RecordEvent()
     {
         if(!_completed)
         {

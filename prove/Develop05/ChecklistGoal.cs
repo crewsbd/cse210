@@ -14,7 +14,7 @@ public class ChecklistGoal : Goal
     {
         return $"{(_completed?"☑":"☒")} {_name}({_description}) -- Currently completed: {_completions}/{_targetCompletions}";;
     }
-    public override void MarkComplete()
+    public override void RecordEvent()
     {
         if(_completions < _targetCompletions)
         {
@@ -25,7 +25,7 @@ public class ChecklistGoal : Goal
             }
         }
     }
-    public override bool Completed()
+    public override bool IsComplete()
     {
         if(_completions >= _targetCompletions)
         {
@@ -38,6 +38,6 @@ public class ChecklistGoal : Goal
     }
     public override int GetTotalPoints()
     {
-        return _completions * _points + (Completed()?_bonus:0);
+        return _completions * _points + (IsComplete()?_bonus:0);
     }
 }

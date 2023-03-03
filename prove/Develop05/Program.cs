@@ -60,19 +60,19 @@ class Program
                         break;
                     }
                 case "3":
-                    {
+                    {   //save goals
                         break;
                     }
                 case "4":
-                    {
+                    {   //load goals
                         break;
                     }
                 case "5":
-                    {
+                    {   //record event
                         break;
                     }
                 case "6":
-                    {
+                    {   //quit
                         continueLoop = false;
                         break;
                     }

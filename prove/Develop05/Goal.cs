@@ -13,7 +13,7 @@ public abstract class Goal
         _completed = false;
     }
     public abstract string Serialize();
-    public abstract Boolean Completed();
+    public abstract Boolean IsComplete();
     public abstract int GetTotalPoints();
-    public abstract void MarkComplete();
+    public abstract void RecordEvent();
 }

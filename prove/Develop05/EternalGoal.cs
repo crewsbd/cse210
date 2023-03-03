@@ -15,11 +15,11 @@ public class EternalGoal : Goal
     {
         return _points * _timesCompleted;
     }
-    public override bool Completed()
+    public override bool IsComplete()
     {
         return false;
     }
-    public override void MarkComplete()
+    public override void RecordEvent()
     {
         _timesCompleted++;
     }
