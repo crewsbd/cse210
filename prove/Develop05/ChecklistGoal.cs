@@ -43,7 +43,7 @@ public class ChecklistGoal : Goal
     }
     public override string EncodeObject()
     {
-        return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\"}}";
+        return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\",\"bonus\":\"{_bonus}\",\"completions\":\"{_completions}\",\"targetcompletions\":\"{_targetCompletions}\"}}";
     }
     public override void DecodeObject(string objectString)
     {
