@@ -15,6 +15,9 @@ abstract class Goal {
     +{abstract} Completed(): Boolean
     +{abstract} GetTotalPoints(): int
     +{abstract} RecordEvent(): void
+    +{abstract} EncodeObject(): void
+    +{abstract} DecodeObject(): void
+    +{abstract} GoalType(): string
 }
 class SimpleGoal {
     +SimpleGoal(name: string, description: string, points: int)
@@ -22,6 +25,9 @@ class SimpleGoal {
     +Completed(): Boolean
     +GetTotalPoints(): int
     +RecordEvent(): void
+    +EncodeObject(): void
+    +DecodeObject(): void
+    +GoalType(): string
 }
 class EternalGoal {
     -timesCompleted: int
@@ -30,6 +36,9 @@ class EternalGoal {
     +Completed(): Boolean
     +GetTotalPoints(): int
     +RecordEvent(): void
+    +EncodeObject(): void
+    +DecodeObject(): void
+    +GoalType(): string
 }
 class ChecklistGoal {
     -bonus: int
@@ -40,18 +49,22 @@ class ChecklistGoal {
     +Completed(): Boolean
     +GetTotalPoints(): int
     +RecordEvent(): void
+    +EncodeObject(): void
+    +DecodeObject(): void
+    +GoalType(): string
 }
-class IO {
-
-}
-class Menu {
-
+class SaveData {
+    -fileName: string
+    -saveData: List<Goal>
+    +SaveData(fileName:string, saveData: List<Goal>)
+    +Save:void
+    +Load:void
 }
 
 Goal <|-- SimpleGoal
 Goal <|-- EternalGoal
 Goal <|-- ChecklistGoal
-Program o-- IO
-Program o-- Menu
+Program o-- SaveData
+
 
 Program "1" o-- "many" Goal

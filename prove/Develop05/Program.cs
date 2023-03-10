@@ -45,6 +45,7 @@ class Program
         string option = "";
         do
         {
+            Console.Clear();
             Console.Write("Menu Options\n1. Create New Goal\n2. List Goals\n3. Save Goals\n4. Load Goals\n5. Record Event\n6. Quit\nSelect a choice from the menu: ");
             option = Console.ReadLine();
             switch (option)
@@ -60,7 +61,7 @@ class Program
                         break;
                     }
                 case "3":
-                    {   //save goals
+                    {   SaveGoals();
                         break;
                     }
                 case "4":
@@ -119,6 +120,11 @@ class Program
         {
             Console.WriteLine(goal.Serialize());
         }
+    }
+    static void SaveGoals()
+    {
+        SaveData saveData = new SaveData("Brian Crews", goals);
+        saveData.Save();
     }
     static int ReadInt()
     {

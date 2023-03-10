@@ -19,6 +19,9 @@ public abstract class Goal
     public abstract void RecordEvent();
     public abstract string EncodeObject();
     public abstract void DecodeObject(string objectString);
-    public abstract string GoalType();
+    public string GoalType()
+    {
+        return this.GetType().ToString();
+    }
 
 }
