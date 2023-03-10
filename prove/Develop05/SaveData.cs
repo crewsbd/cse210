@@ -35,18 +35,54 @@ public class SaveData
     public void Load()
     {
         if (File.Exists(_fileName))
-        { 
-            using(StreamReader dataFile = new StreamReader(_fileName) )
+        {
+            using (StreamReader dataFile = new StreamReader(_fileName))
             {
+                _saveData.Clear();
                 string fullText = dataFile.ReadToEnd();
                 JsonDocument json = JsonDocument.Parse(fullText);
-                
+
+                JsonElement goals = json.RootElement.GetProperty("goals");
+                foreach (JsonElement goal in goals.EnumerateArray())
+                {
+                    string type = goal.GetProperty("$type").GetString();
+                    switch (type)
+                    {
+                        case "SimpleGoal":
+                            {
+                                string goalName = goal.GetProperty("name").GetString();
+                                string goalDesc = goal.GetProperty("description").GetString();
+                                int goalPoints = int.Parse(goal.GetProperty("points").GetString());
+
+                                _saveData.Add(new SimpleGoal(goalName, goalDesc, goalPoints));
+                                break;
+                            }
+                            case "EternalGoal":
+                            {
+                                string goalName = goal.GetProperty("name").GetString();
+                                string goalDesc = goal.GetProperty("description").GetString();
+                                int goalPoints = int.Parse(goal.GetProperty("points").GetString());
+
+                                _saveData.Add(new SimpleGoal(goalName, goalDesc, goalPoints));
+                                break;
+                            }
+                            case "ChecklistGoal":
+                            {
+                                string goalName = goal.GetProperty("name").GetString();
+                                string goalDesc = goal.GetProperty("description").GetString();
+                                int goalPoints = int.Parse(goal.GetProperty("points").GetString());
+
+                                _saveData.Add(new SimpleGoal(goalName, goalDesc, goalPoints));
+                                break;
+                            }
+
+                    }
+                }
             }
         }
         else
         {
             throw new FileNotFoundException($"{_fileName} does not exist.");
         }
-        
     }
 }

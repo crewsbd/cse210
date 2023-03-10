@@ -61,11 +61,13 @@ class Program
                         break;
                     }
                 case "3":
-                    {   SaveGoals();
+                    {
+                        SaveGoals();
                         break;
                     }
                 case "4":
-                    {   //load goals
+                    {
+                        LoadGoals();
                         break;
                     }
                 case "5":
@@ -116,15 +118,23 @@ class Program
     }
     static void ListGoals()
     {
-        foreach(Goal goal in goals)
+        foreach (Goal goal in goals)
         {
             Console.WriteLine(goal.Serialize());
+
         }
+        Console.WriteLine("Press a key.");
+        Console.ReadLine();
     }
     static void SaveGoals()
     {
         SaveData saveData = new SaveData("Brian Crews", goals);
         saveData.Save();
+    }
+    static void LoadGoals()
+    {
+        SaveData saveData = new SaveData("Brian Crews", goals);
+        saveData.Load();
     }
     static int ReadInt()
     {
