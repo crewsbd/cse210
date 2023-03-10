@@ -6,7 +6,7 @@ public class SimpleGoal : Goal
     }
     public override string Serialize()
     {
-        return $"{(_completed?"☑":"☒")} {_name}({_description})";
+        return $"[{(_completed?"V":" ")}] {_name}({_description})";
     }
     public override bool IsComplete()
     {

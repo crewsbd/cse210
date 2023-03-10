@@ -91,7 +91,7 @@ class Program
         {
             case "1":
                 {
-                    Console.Write("What is the name of your goal? ");
+                    Console.Write("What is the name of your simple goal? ");
                     string name = Console.ReadLine();
                     Console.Write("What is a short description of your goal? ");
                     string description = Console.ReadLine();
@@ -103,10 +103,30 @@ class Program
                 }
             case "2":
                 {
+                    Console.Write("What is the name of your eternal goal? ");
+                    string name = Console.ReadLine();
+                    Console.Write("What is a short description of your goal? ");
+                    string description = Console.ReadLine();
+                    Console.Write("What is the amount of points associated with this goal?");
+                    int points = ReadInt();
+
+                    goals.Add(new EternalGoal(name, description, points));
                     break;
                 }
             case "3":
                 {
+                    Console.Write("What is the name of your checklist goal? ");
+                    string name = Console.ReadLine();
+                    Console.Write("What is a short description of your goal? ");
+                    string description = Console.ReadLine();
+                    Console.Write("What is the amount of points associated one completion of this goal? ");
+                    int points = ReadInt();
+                    Console.Write("How many times must this goal be completed? ");
+                    int completions = ReadInt();
+                    Console.Write("How many points for a full completion of this goal? ");
+                    int bonus = ReadInt();
+
+                    goals.Add(new ChecklistGoal(name, description, points, completions, bonus));
                     break;
                 }
             default:

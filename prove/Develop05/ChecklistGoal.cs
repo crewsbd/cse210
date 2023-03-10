@@ -13,7 +13,7 @@ public class ChecklistGoal : Goal
     }
     public override string Serialize()
     {
-        return $"{(_completed?"☑":"☒")} {_name}({_description}) -- Currently completed: {_completions}/{_targetCompletions}";;
+        return $"[{(_completed?"V":" ")}] {_name}({_description}) -- Currently completed: {_completions}/{_targetCompletions}";;
     }
     public override void RecordEvent()
     {

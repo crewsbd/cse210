@@ -9,7 +9,7 @@ public class EternalGoal : Goal
     }
     public override string Serialize()
     {
-        string returnString = $"☒ {_name} ({_description})";
+        string returnString = $"[-] {_name} ({_description}) {_timesCompleted} completions.";
         return $"{returnString}";
     }
     public override int GetTotalPoints()
@@ -26,7 +26,7 @@ public class EternalGoal : Goal
     }
     public override string EncodeObject()
     {
-        return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\"timescompleted\":\"{_timesCompleted}\"}}";
+        return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\",\"timescompleted\":\"{_timesCompleted}\"}}";
     }
     public override void DecodeObject(string objectString)
     {

@@ -1,7 +1,8 @@
 {
 	"username":"Brian Crews",
 	"goals":[
-		{"$type":"SimpleGoal","name":"alskgjlkasg","description":"laskjoaksjokasjdf","points":"45"},
-		{"$type":"SimpleGoal","name":"sdlkfgjldskjfhlkjlkjjlkjlkj","description":"lk","points":"33"}
+		{"$type":"SimpleGoal","name":"simple","description":"slimple","points":"39"},
+		{"$type":"EternalGoal","name":"eternalss","description":"sucks","points":"435","timescompleted":"0"},
+		{"$type":"ChecklistGoal","name":"checky","description":"laskdfjlsak","points":"345","bonus":"45","completions":"0","targetcompletions":"2"}
 	]
 }
