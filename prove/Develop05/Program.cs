@@ -53,25 +53,31 @@ class Program
                 case "1":
                     {
                         CreateGoal();
+                        AnyKey();
                         break;
                     }
                 case "2":
                     {
                         ListGoals();
+                        AnyKey();
                         break;
                     }
                 case "3":
                     {
                         SaveGoals();
+                        AnyKey();
                         break;
                     }
                 case "4":
                     {
                         LoadGoals();
+                        AnyKey();
                         break;
                     }
                 case "5":
-                    {   //record event
+                    {
+                        RecordEvent();
+                        AnyKey();
                         break;
                     }
                 case "6":
@@ -136,15 +142,36 @@ class Program
                 }
         }
     }
-    static void ListGoals()
+    static List<Goal> ListGoals(Boolean numbered = false, Boolean showIncomplete = false)
     {
-        foreach (Goal goal in goals)
+        List<Goal> incompleteGoals = goals.FindAll((goal) =>
         {
-            Console.WriteLine(goal.Serialize());
+            if (!goal.IsComplete())
+            {
+                return true;
+            }
+            else
+            {
+                if (showIncomplete)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        });
+
+        int num = 0;
+        foreach (Goal goal in incompleteGoals)
+        {
+            Console.WriteLine($"{(numbered ? num + " " : "")}{goal.Serialize()}");
+            num++;
 
         }
-        Console.WriteLine("Press a key.");
-        Console.ReadLine();
+
+        return incompleteGoals;
     }
     static void SaveGoals()
     {
@@ -155,6 +182,14 @@ class Program
     {
         SaveData saveData = new SaveData("Brian Crews", goals);
         saveData.Load();
+    }
+    static void RecordEvent()
+    {
+        List<Goal> incompleteGoals = ListGoals(true, false);
+        Console.Write("Which goal?");
+        int goal = ReadInt();
+        incompleteGoals[goal].RecordEvent();
+
     }
     static int ReadInt()
     {
@@ -170,5 +205,10 @@ class Program
                 Console.WriteLine("Not an integer.");
             }
         } while (true);
+    }
+    static void AnyKey()
+    {
+        Console.WriteLine("Press a key.");
+        Console.ReadLine();
     }
 }

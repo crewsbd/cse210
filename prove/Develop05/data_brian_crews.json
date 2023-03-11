@@ -1,8 +1,9 @@
 {
 	"username":"Brian Crews",
 	"goals":[
-		{"$type":"SimpleGoal","name":"simple","description":"slimple","points":"39"},
-		{"$type":"EternalGoal","name":"eternalss","description":"sucks","points":"435","timescompleted":"0"},
-		{"$type":"ChecklistGoal","name":"checky","description":"laskdfjlsak","points":"345","bonus":"45","completions":"0","targetcompletions":"2"}
+		{"$type":"SimpleGoal","name":"simple","description":"slimple","points":"39","completed":"True"},
+		{"$type":"EternalGoal","name":"eternalss","description":"sucks","points":"435","completed":"False","timescompleted":"3"},
+		{"$type":"ChecklistGoal","name":"checky","description":"laskdfjlsak","points":"345","completed":"True","bonus":"45","completions":"2","targetcompletions":"2"},
+		{"$type":"SimpleGoal","name":"A second simple goal","description":"This is sooo long it hurts my soul.","points":"34","completed":"False"}
 	]
 }

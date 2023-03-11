@@ -17,10 +17,11 @@ public class ChecklistGoal : Goal
         _bonus = int.Parse(saveInfo.GetProperty("bonus").GetString());
         _completions = int.Parse(saveInfo.GetProperty("completions").GetString());
         _targetCompletions = int.Parse(saveInfo.GetProperty("targetcompletions").GetString());
+        _completed = (saveInfo.GetProperty("completed").GetString() == "False"? false: true);
     }
     public override string Serialize()
     {
-        return $"[{(_completed?"V":" ")}] {_name}({_description}) -- Currently completed: {_completions}/{_targetCompletions}";;
+        return $"[{(_completed?"V":" ")}] {_name} ({_description}) -- Currently completed: {_completions}/{_targetCompletions}";;
     }
     public override void RecordEvent()
     {
@@ -50,7 +51,7 @@ public class ChecklistGoal : Goal
     }
     public override string EncodeObject()
     {
-        return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\",\"bonus\":\"{_bonus}\",\"completions\":\"{_completions}\",\"targetcompletions\":\"{_targetCompletions}\"}}";
+        return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\",\"completed\":\"{_completed}\",\"bonus\":\"{_bonus}\",\"completions\":\"{_completions}\",\"targetcompletions\":\"{_targetCompletions}\"}}";
     }
     public override void DecodeObject(string objectString)
     {

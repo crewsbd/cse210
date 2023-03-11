@@ -7,10 +7,11 @@ public class SimpleGoal : Goal
     }
     public SimpleGoal(JsonElement saveInfo) : base(saveInfo.GetProperty("name").GetString(), saveInfo.GetProperty("description").GetString(), int.Parse(saveInfo.GetProperty("points").GetString()))
     {
+        _completed = (saveInfo.GetProperty("completed").GetString() == "False"? false: true);
     }
     public override string Serialize()
     {
-        return $"[{(_completed?"V":" ")}] {_name}({_description})";
+        return $"[{(_completed?"V":" ")}] {_name} ({_description})";
     }
     public override bool IsComplete()
     {
@@ -44,7 +45,7 @@ public class SimpleGoal : Goal
     }
     public override string EncodeObject()
     {
-        return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\"}}";
+        return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\",\"completed\":\"{_completed}\"}}";
     }
     public override void DecodeObject(string objectString)
     {

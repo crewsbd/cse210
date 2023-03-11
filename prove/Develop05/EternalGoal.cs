@@ -11,6 +11,7 @@ public class EternalGoal : Goal
     public EternalGoal(JsonElement saveInfo) : base(saveInfo.GetProperty("name").GetString(), saveInfo.GetProperty("description").GetString(), int.Parse(saveInfo.GetProperty("points").GetString()))
     {
         _timesCompleted = int.Parse(saveInfo.GetProperty("timescompleted").GetString());
+        _completed = (saveInfo.GetProperty("completed").GetString() == "False"? false: true);
     }
     public override string Serialize()
     {
@@ -31,7 +32,7 @@ public class EternalGoal : Goal
     }
     public override string EncodeObject()
     {
-        return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\",\"timescompleted\":\"{_timesCompleted}\"}}";
+        return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\",\"completed\":\"{_completed}\",\"timescompleted\":\"{_timesCompleted}\"}}";
     }
     public override void DecodeObject(string objectString)
     {
