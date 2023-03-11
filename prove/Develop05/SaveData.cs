@@ -50,29 +50,17 @@ public class SaveData
                     {
                         case "SimpleGoal":
                             {
-                                string goalName = goal.GetProperty("name").GetString();
-                                string goalDesc = goal.GetProperty("description").GetString();
-                                int goalPoints = int.Parse(goal.GetProperty("points").GetString());
-
-                                _saveData.Add(new SimpleGoal(goalName, goalDesc, goalPoints));
+                                _saveData.Add(new SimpleGoal(goal));
                                 break;
                             }
                             case "EternalGoal":
                             {
-                                string goalName = goal.GetProperty("name").GetString();
-                                string goalDesc = goal.GetProperty("description").GetString();
-                                int goalPoints = int.Parse(goal.GetProperty("points").GetString());
-
-                                _saveData.Add(new SimpleGoal(goalName, goalDesc, goalPoints));
+                                _saveData.Add(new EternalGoal(goal));
                                 break;
                             }
                             case "ChecklistGoal":
                             {
-                                string goalName = goal.GetProperty("name").GetString();
-                                string goalDesc = goal.GetProperty("description").GetString();
-                                int goalPoints = int.Parse(goal.GetProperty("points").GetString());
-
-                                _saveData.Add(new SimpleGoal(goalName, goalDesc, goalPoints));
+                                _saveData.Add(new ChecklistGoal(goal));
                                 break;
                             }
 

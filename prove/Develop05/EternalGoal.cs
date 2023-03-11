@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Text.Json;
 public class EternalGoal : Goal
 {
 
@@ -6,6 +7,10 @@ public class EternalGoal : Goal
     public EternalGoal(string name, string description, int points) : base(name, description, points)
     {
         _timesCompleted = 0;
+    }
+    public EternalGoal(JsonElement saveInfo) : base(saveInfo.GetProperty("name").GetString(), saveInfo.GetProperty("description").GetString(), int.Parse(saveInfo.GetProperty("points").GetString()))
+    {
+        _timesCompleted = int.Parse(saveInfo.GetProperty("timescompleted").GetString());
     }
     public override string Serialize()
     {

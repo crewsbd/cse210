@@ -1,7 +1,11 @@
 using System.Text.RegularExpressions;
+using System.Text.Json;
 public class SimpleGoal : Goal
 {
     public SimpleGoal(string name, string description, int points) : base(name, description, points)
+    {
+    }
+    public SimpleGoal(JsonElement saveInfo) : base(saveInfo.GetProperty("name").GetString(), saveInfo.GetProperty("description").GetString(), int.Parse(saveInfo.GetProperty("points").GetString()))
     {
     }
     public override string Serialize()
@@ -19,6 +23,7 @@ public class SimpleGoal : Goal
             return false;
         }
     }
+    
     public override int GetTotalPoints()
     {
         if(IsComplete())

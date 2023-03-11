@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Text.Json;
 public class ChecklistGoal : Goal
 {
     private int _bonus;
@@ -10,6 +11,12 @@ public class ChecklistGoal : Goal
     {
         _bonus = bonus;
         _targetCompletions = targetCompletions;
+    }
+    public ChecklistGoal(JsonElement saveInfo) : base(saveInfo.GetProperty("name").GetString(), saveInfo.GetProperty("description").GetString(), int.Parse(saveInfo.GetProperty("points").GetString()))
+    {
+        _bonus = int.Parse(saveInfo.GetProperty("bonus").GetString());
+        _completions = int.Parse(saveInfo.GetProperty("completions").GetString());
+        _targetCompletions = int.Parse(saveInfo.GetProperty("targetcompletions").GetString());
     }
     public override string Serialize()
     {
