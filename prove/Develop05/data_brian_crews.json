@@ -1,9 +1,11 @@
 {
 	"username":"Brian Crews",
 	"goals":[
-		{"$type":"SimpleGoal","name":"simple","description":"slimple","points":"39","completed":"True"},
-		{"$type":"EternalGoal","name":"eternalss","description":"sucks","points":"435","completed":"False","timescompleted":"3"},
-		{"$type":"ChecklistGoal","name":"checky","description":"laskdfjlsak","points":"345","completed":"True","bonus":"45","completions":"2","targetcompletions":"2"},
-		{"$type":"SimpleGoal","name":"A second simple goal","description":"This is sooo long it hurts my soul.","points":"34","completed":"False"}
+		{"$type":"SimpleGoal","name":"Create a simple game.","description":"Create a simple game and publish it.","points":"100","completed":"False"},
+		{"$type":"EternalGoal","name":"Read scriptures.","description":"Read scriptures for 15 minutes.","points":"10","completed":"False","timescompleted":"0"},
+		{"$type":"EternalGoal","name":"Personal prayer.","description":"Say a personal prayer.","points":"10","completed":"False","timescompleted":"0"},
+		{"$type":"EternalGoal","name":"Take my vitamins","description":"Take my multi-vitamin","points":"10","completed":"False","timescompleted":"0"},
+		{"$type":"ChecklistGoal","name":"Ride my bike.","description":"Ride my bike around the neighborhood.","points":"10","completed":"False","bonus":"20","completions":"0","targetcompletions":"4"},
+		{"$type":"SimpleGoal","name":"Work on my spaceship game.","description":"Work on my spaceship game.","points":"10","completed":"False"}
 	]
 }
