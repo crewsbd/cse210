@@ -5,7 +5,8 @@
 		{"$type":"EternalGoal","name":"Read scriptures.","description":"Read scriptures for 15 minutes.","points":"10","completed":"False","timescompleted":"0"},
 		{"$type":"EternalGoal","name":"Personal prayer.","description":"Say a personal prayer.","points":"10","completed":"False","timescompleted":"0"},
 		{"$type":"EternalGoal","name":"Take my vitamins","description":"Take my multi-vitamin","points":"10","completed":"False","timescompleted":"0"},
-		{"$type":"ChecklistGoal","name":"Ride my bike.","description":"Ride my bike around the neighborhood.","points":"10","completed":"False","bonus":"20","completions":"0","targetcompletions":"4"},
-		{"$type":"SimpleGoal","name":"Work on my spaceship game.","description":"Work on my spaceship game.","points":"10","completed":"False"}
+		{"$type":"ChecklistGoal","name":"Ride my bike.","description":"Ride my bike around the neighborhood.","points":"10","completed":"False","bonus":"20","completions":"1","targetcompletions":"4"},
+		{"$type":"SimpleGoal","name":"Work on my spaceship game.","description":"Work on my spaceship game.","points":"10","completed":"False"},
+		{"$type":"SimpleGoal","name":"Finish this program","description":"Finish, debug and doublecheck conformity for this.","points":"1000","completed":"True"}
 	]
 }

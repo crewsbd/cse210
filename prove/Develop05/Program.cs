@@ -39,15 +39,23 @@ using System;
 class Program
 {
     static List<Goal> goals = new List<Goal>();
+    static string userName;
     static void Main(string[] args)
     {
+        Console.Clear();
+        Console.WriteLine("What is your name? ");
+        userName = Console.ReadLine();
         Boolean continueLoop = true;
         string option = "";
+        //Main program loop-----------
         do
         {
             Console.Clear();
+            Console.WriteLine($"--==| {userName}s Goals |==--");
+            Console.WriteLine($"Total Points: {TotalPoints()}");
             Console.Write("Menu Options\n1. Create New Goal\n2. List Goals\n3. Save Goals\n4. Load Goals\n5. Record Event\n6. Quit\nSelect a choice from the menu: ");
             option = Console.ReadLine();
+            Console.WriteLine();
             switch (option)
             {
                 case "1":
@@ -58,7 +66,7 @@ class Program
                     }
                 case "2":
                     {
-                        ListGoals();
+                        ListGoals(showComplete:true);
                         AnyKey();
                         break;
                     }
@@ -89,6 +97,7 @@ class Program
         }
         while (continueLoop);
     }
+    //Menu functions--------------------------------
     static void CreateGoal()
     {
         Console.Write("The types of goals are:\n1. Simple Goal\n2. Eternal Goal\n3. Checklist Goal\nWhich type of goal would you like to create? ");
@@ -101,7 +110,7 @@ class Program
                     string name = Console.ReadLine();
                     Console.Write("What is a short description of your goal? ");
                     string description = Console.ReadLine();
-                    Console.Write("What is the amount of points associated with this goal?");
+                    Console.Write("What is the amount of points associated with this goal? ");
                     int points = ReadInt();
 
                     goals.Add(new SimpleGoal(name, description, points));
@@ -113,7 +122,7 @@ class Program
                     string name = Console.ReadLine();
                     Console.Write("What is a short description of your goal? ");
                     string description = Console.ReadLine();
-                    Console.Write("What is the amount of points associated with this goal?");
+                    Console.Write("What is the amount of points associated with this goal? ");
                     int points = ReadInt();
 
                     goals.Add(new EternalGoal(name, description, points));
@@ -142,7 +151,7 @@ class Program
                 }
         }
     }
-    static List<Goal> ListGoals(Boolean numbered = false, Boolean showIncomplete = false)
+    static List<Goal> ListGoals(Boolean numbered = false, Boolean showComplete = false)
     {
         List<Goal> incompleteGoals = goals.FindAll((goal) =>
         {
@@ -152,7 +161,7 @@ class Program
             }
             else
             {
-                if (showIncomplete)
+                if (showComplete)
                 {
                     return true;
                 }
@@ -175,22 +184,22 @@ class Program
     }
     static void SaveGoals()
     {
-        SaveData saveData = new SaveData("Brian Crews", goals);
+        SaveData saveData = new SaveData(userName, goals);
         saveData.Save();
     }
     static void LoadGoals()
     {
-        SaveData saveData = new SaveData("Brian Crews", goals);
+        SaveData saveData = new SaveData(userName, goals);
         saveData.Load();
     }
     static void RecordEvent()
     {
         List<Goal> incompleteGoals = ListGoals(true, false);
-        Console.Write("Which goal?");
+        Console.Write("Which goal? ");
         int goal = ReadInt();
         incompleteGoals[goal].RecordEvent();
-
     }
+    //Helpers--------------------------
     static int ReadInt()
     {
         int value;
@@ -210,5 +219,14 @@ class Program
     {
         Console.WriteLine("Press a key.");
         Console.ReadLine();
+    }
+    static int TotalPoints()
+    {
+        int totalPoints = 0;
+        foreach(Goal goal in goals)
+        {
+            totalPoints += goal.GetTotalPoints();
+        }
+        return totalPoints;
     }
 }

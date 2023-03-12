@@ -1,0 +1,7 @@
+{
+	"username":"Geoff Cruz",
+	"goals":[
+		{"$type":"SimpleGoal","name":"Be as cool as Brian Crews","description":"He knows...he knows.","points":"100","completed":"False"},
+		{"$type":"EternalGoal","name":"Stay cool","description":"Like Brian. You know. You know.","points":"50","completed":"False","timescompleted":"0"}
+	]
+}
