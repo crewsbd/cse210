@@ -34,12 +34,4 @@ public class EternalGoal : Goal
     {
         return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\",\"completed\":\"{_completed}\",\"timescompleted\":\"{_timesCompleted}\"}}";
     }
-    public override void DecodeObject(string objectString)
-    {
-        string regexString = "\\{type:\"(?<type>[A-Za-z]*)\",name:\"(?<name>[A-Za-z ]*)\",description:\"(?<description>[A-Za-z ,'\"]*)\",points:\"(?<points>[0-9]*)\"\\}";
-        Match match = Regex.Match(objectString, regexString);
-        _name = match.Groups["name"].Value;
-        _description = match.Groups["description"].Value;
-        _points = int.Parse(match.Groups["points"].Value);
-    }
 }

@@ -18,7 +18,6 @@ public abstract class Goal
     public abstract int GetTotalPoints();
     public abstract void RecordEvent();
     public abstract string EncodeObject();
-    public abstract void DecodeObject(string objectString);
     public string GoalType()
     {
         return this.GetType().ToString();

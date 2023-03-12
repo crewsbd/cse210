@@ -11,7 +11,7 @@ public class SimpleGoal : Goal
     }
     public override string Serialize()
     {
-        return $"[{(_completed?"V":" ")}] {_name} ({_description})";
+        return $"[{(_completed?"✓":" ")}] {_name} ({_description})";
     }
     public override bool IsComplete()
     {
@@ -47,16 +47,4 @@ public class SimpleGoal : Goal
     {
         return $"{{\"$type\":\"{GoalType()}\",\"name\":\"{_name}\",\"description\":\"{_description}\",\"points\":\"{_points}\",\"completed\":\"{_completed}\"}}";
     }
-    public override void DecodeObject(string objectString)
-    {
-        string regexString = "^\\{\"\\$type\":\"(?<type>[^\"]*)\",\"name\":\"(?<name>[^\"]*)\",\"description\":\"(?<description>[^\"]*)\",\"points\":\"(?<points>[0-9]*)\"\\}";
-        
-
-
-        Match match = Regex.Match(objectString, regexString);
-        _name = match.Groups["name"].Value;
-        _description = match.Groups["description"].Value;
-        _points = int.Parse(match.Groups["points"].Value);
-    }
-
 }
