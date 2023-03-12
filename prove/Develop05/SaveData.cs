@@ -67,10 +67,11 @@ public class SaveData
                     }
                 }
             }
+            Console.WriteLine($"{_fileName} loaded.");
         }
         else
         {
-            throw new FileNotFoundException($"{_fileName} does not exist.");
+            Console.WriteLine("There is no user by that name. Create some goals and then save them to create a file for that user.");
         }
     }
 }
