@@ -39,6 +39,8 @@ using System;
 class Program
 {
     static List<Goal> goals = new List<Goal>();
+    static List<Goal> history = new List<Goal>();
+    static int historySize = 3;
     static string userName;
     static void Main(string[] args)
     {
@@ -52,6 +54,15 @@ class Program
         {
             Console.Clear();
             Console.WriteLine($"--==| {userName}s Goals |==--");
+            
+            if(history.Count > 0)
+            {
+                Console.WriteLine("Recent activity");
+                foreach(Goal goal in history)
+                {
+                    Console.WriteLine(goal.Serialize());
+                }
+            }
             Console.WriteLine($"Total Points: {TotalPoints()}");
             Console.Write("Menu Options\n1. Create New Goal\n2. List Goals\n3. Save Goals\n4. Load Goals\n5. Record Event\n6. Quit\nSelect a choice from the menu: ");
             option = Console.ReadLine();
@@ -198,6 +209,11 @@ class Program
         Console.Write("Which goal? ");
         int goal = ReadInt();
         incompleteGoals[goal].RecordEvent();
+        history.Add(incompleteGoals[goal]);
+        if(history.Count > historySize)
+        {
+            history.RemoveAt(0); //Pipe
+        }
     }
     //Helpers--------------------------
     static int ReadInt()
