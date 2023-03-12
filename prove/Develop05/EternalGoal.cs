@@ -1,8 +1,8 @@
 using System.Text.RegularExpressions;
 using System.Text.Json;
+
 public class EternalGoal : Goal
 {
-
     private int _timesCompleted;
     public EternalGoal(string name, string description, int points) : base(name, description, points)
     {
@@ -11,7 +11,7 @@ public class EternalGoal : Goal
     public EternalGoal(JsonElement saveInfo) : base(saveInfo.GetProperty("name").GetString(), saveInfo.GetProperty("description").GetString(), int.Parse(saveInfo.GetProperty("points").GetString()))
     {
         _timesCompleted = int.Parse(saveInfo.GetProperty("timescompleted").GetString());
-        _completed = (saveInfo.GetProperty("completed").GetString() == "False"? false: true);
+        _completed = (saveInfo.GetProperty("completed").GetString() == "False" ? false : true);
     }
     public override string Serialize()
     {

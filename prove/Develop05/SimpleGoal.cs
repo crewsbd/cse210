@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using System.Text.Json;
+
 public class SimpleGoal : Goal
 {
     public SimpleGoal(string name, string description, int points) : base(name, description, points)
@@ -7,15 +8,15 @@ public class SimpleGoal : Goal
     }
     public SimpleGoal(JsonElement saveInfo) : base(saveInfo.GetProperty("name").GetString(), saveInfo.GetProperty("description").GetString(), int.Parse(saveInfo.GetProperty("points").GetString()))
     {
-        _completed = (saveInfo.GetProperty("completed").GetString() == "False"? false: true);
+        _completed = (saveInfo.GetProperty("completed").GetString() == "False" ? false : true);
     }
     public override string Serialize()
     {
-        return $"[{(_completed?"✓":" ")}] {_name} ({_description})";
+        return $"[{(_completed ? "✓" : " ")}] {_name} ({_description})";
     }
     public override bool IsComplete()
     {
-        if(_completed)
+        if (_completed)
         {
             return true;
         }
@@ -24,10 +25,9 @@ public class SimpleGoal : Goal
             return false;
         }
     }
-    
     public override int GetTotalPoints()
     {
-        if(IsComplete())
+        if (IsComplete())
         {
             return _points;
         }
@@ -38,7 +38,7 @@ public class SimpleGoal : Goal
     }
     public override void RecordEvent()
     {
-        if(!_completed)
+        if (!_completed)
         {
             _completed = true;
         }

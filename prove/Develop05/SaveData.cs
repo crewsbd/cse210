@@ -1,10 +1,5 @@
-/* Todo: Decide on data structure
--JSON? Save some games stats, then save array of goals. 
--Need to track data for different goal types. 
--Need conditionals on save and load? 
--Need regex?
--Is there any information that can't be obtained from _saveData? A name? Make a separate struct for this?
-
+/* 
+Class to load user data.
 */
 using System.Text.Json;
 

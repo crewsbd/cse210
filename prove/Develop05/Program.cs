@@ -54,11 +54,11 @@ class Program
         {
             Console.Clear();
             Console.WriteLine($"--==| {userName}s Goals |==--");
-            
-            if(history.Count > 0)
+
+            if (history.Count > 0)
             {
                 Console.WriteLine("Recent activity");
-                foreach(Goal goal in history)
+                foreach (Goal goal in history)
                 {
                     Console.WriteLine(goal.Serialize());
                 }
@@ -77,7 +77,7 @@ class Program
                     }
                 case "2":
                     {
-                        ListGoals(showComplete:true);
+                        ListGoals(showComplete: true);
                         AnyKey();
                         break;
                     }
@@ -210,7 +210,7 @@ class Program
         int goal = ReadInt();
         incompleteGoals[goal].RecordEvent();
         history.Add(incompleteGoals[goal]);
-        if(history.Count > historySize)
+        if (history.Count > historySize)
         {
             history.RemoveAt(0); //Pipe
         }
@@ -239,7 +239,7 @@ class Program
     static int TotalPoints()
     {
         int totalPoints = 0;
-        foreach(Goal goal in goals)
+        foreach (Goal goal in goals)
         {
             totalPoints += goal.GetTotalPoints();
         }

@@ -1,12 +1,11 @@
 using System.Text.RegularExpressions;
 using System.Text.Json;
+
 public class ChecklistGoal : Goal
 {
     private int _bonus;
     private int _completions;
     private int _targetCompletions;
-
-
     public ChecklistGoal(string name, string description, int points, int targetCompletions, int bonus) : base(name, description, points)
     {
         _bonus = bonus;
@@ -17,18 +16,18 @@ public class ChecklistGoal : Goal
         _bonus = int.Parse(saveInfo.GetProperty("bonus").GetString());
         _completions = int.Parse(saveInfo.GetProperty("completions").GetString());
         _targetCompletions = int.Parse(saveInfo.GetProperty("targetcompletions").GetString());
-        _completed = (saveInfo.GetProperty("completed").GetString() == "False"? false: true);
+        _completed = (saveInfo.GetProperty("completed").GetString() == "False" ? false : true);
     }
     public override string Serialize()
     {
-        return $"[{(_completed?"✓":" ")}] {_name} ({_description}) -- Currently completed: {_completions}/{_targetCompletions}";;
+        return $"[{(_completed ? "✓" : " ")}] {_name} ({_description}) -- Currently completed: {_completions}/{_targetCompletions}"; ;
     }
     public override void RecordEvent()
     {
-        if(_completions < _targetCompletions)
+        if (_completions < _targetCompletions)
         {
             _completions++;
-            if(_completions == _targetCompletions)
+            if (_completions == _targetCompletions)
             {
                 _completed = true;
             }
@@ -36,7 +35,7 @@ public class ChecklistGoal : Goal
     }
     public override bool IsComplete()
     {
-        if(_completions >= _targetCompletions)
+        if (_completions >= _targetCompletions)
         {
             return true;
         }
@@ -47,7 +46,7 @@ public class ChecklistGoal : Goal
     }
     public override int GetTotalPoints()
     {
-        return _completions * _points + (IsComplete()?_bonus:0);
+        return _completions * _points + (IsComplete() ? _bonus : 0);
     }
     public override string EncodeObject()
     {
