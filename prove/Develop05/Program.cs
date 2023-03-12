@@ -1,7 +1,7 @@
 /*
-Full credit ideas
---Show the last X events in menu.
---Reward displays for milestones etc.
+Full credit
+-Listed the last three events or goal completions
+-Used json to store user data. Used libraries for decoding
 */
 
 /*
