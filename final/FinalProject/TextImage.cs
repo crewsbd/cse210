@@ -94,4 +94,11 @@ public class TextImage
     {
         return string.Join("\n", _textArray);
     }
+    public void Clear()
+    {
+        for(int iy = 0; iy < _height; iy++)
+        {
+            _textArray[iy] = "".PadLeft(_width, ' ');
+        }
+    }
 }
