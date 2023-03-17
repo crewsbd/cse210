@@ -1,38 +1,78 @@
 @startuml Dungeon
 static class Program {
-    _name: string;
+    +table: Table
 }
 abstract class Encounter {
-
+    #name: string
+    #description: string
+    #rewards: Item[]
+    #card: TextImage
+    #image: TextImage
+    #difficultyRank: int
 }
-class SimpleEncounter {
-
-}
-class BossEncounter {
-
-}
-class CompoundEncounter {
-
+together {
+    class SimpleEncounter {
+        -hp: int
+        -damage: int
+        -type: enum
+    }
+    class BossEncounter {
+        -turns: int
+        -hp: int
+        -damage1: int
+        -type1: enum
+        -damage2: int
+        -type2: enum
+        -weak: enum
+    }
+    class CompoundEncounter {
+        -Encounters: SimpleEncounter[3]
+    }
 }
 class Player {
+    -name: string
+    -items: Item[]
+}
+class Table {
+    players: Player[]
+    encountersGrid: List<Encounter>[2][3][3]
+    currentPlayer: int
 
+    +AddPlayer(name: string)
+    +StartGame()
+    +NextPlayer(): Boolean
+    +GetWinner(): Player
 }
 class Item {
-
+    Resist: int
+    ResistType: enum
+    healPower: Boolean
+    healAmount: int
+    attackUp: int
+    attackType: enum
 }
 class TextImage {
-
+    _textArray: string[]
+    _width: int
+    _height: int
 }
 
+skinparam groupInheritance 2
+
+Program o-- Table
 Encounter <|-- SimpleEncounter
 Encounter <|-- BossEncounter
 Encounter <|-- CompoundEncounter
-Program "1" o-- "many" Encounter
-Program "1" o-- "many" Player
-Player "1" o-- "many" Item
-Encounter o-- TextImage
-Program o-- TextImage
-Encounter o-- Item
+Player "1" o- "many" Item
+Encounter o- TextImage
+Table o- TextImage
+Encounter o- Item
+Player o- Encounter
+Player o- TextImage
+Table o- Encounter
+Item o- TextImage
+CompoundEncounter o- SimpleEncounter
 
+@enduml
 
 
