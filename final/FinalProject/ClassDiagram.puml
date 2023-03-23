@@ -8,7 +8,9 @@ abstract class Encounter {
     #rewards: Item[]
     #card: TextImage
     #image: TextImage
-    #difficultyRank: int
+    #Draw(): void
+    #Run(): boolean
+    #GetReward(): Item[]
 }
 together {
     class SimpleEncounter {
@@ -17,7 +19,6 @@ together {
         -type: enum
     }
     class BossEncounter {
-        -turns: int
         -hp: int
         -damage1: int
         -type1: enum
@@ -26,12 +27,18 @@ together {
         -weak: enum
     }
     class CompoundEncounter {
-        -Encounters: SimpleEncounter[3]
+        -Encounters: SimpleEncounter[]
+    }
+    class TrapEncounter {
+        -damage: int
+        -type: enum
     }
 }
 class Player {
     -name: string
     -items: Item[]
+    -health: int
+    -maxHealth: int
 }
 class Table {
     players: Player[]
@@ -42,19 +49,24 @@ class Table {
     +StartGame()
     +NextPlayer(): Boolean
     +GetWinner(): Player
+    -DrawTable(): void
+    -ZoomCard(): void
 }
 class Item {
-    Resist: int
-    ResistType: enum
-    healPower: Boolean
-    healAmount: int
-    attackUp: int
-    attackType: enum
+    -name: string
+    -description: string
+    -damageBonuses: string[]
+    -healPower: Boolean
+    -healAmount: int
+    -attackBonuses: string[]
 }
 class TextImage {
-    _textArray: string[]
-    _width: int
-    _height: int
+    -textArray: string[]
+    -width: int
+    -height: int
+    +Draw(img:string, x:int, y:int)
+    +DrawCard(x:int, y:int, width:int, height:int)
+
 }
 
 skinparam groupInheritance 2
@@ -63,6 +75,7 @@ Program o-- Table
 Encounter <|-- SimpleEncounter
 Encounter <|-- BossEncounter
 Encounter <|-- CompoundEncounter
+Encounter <|-- TrapEncounter
 Player "1" o- "many" Item
 Encounter o- TextImage
 Table o- TextImage

@@ -1,0 +1,128 @@
+{
+    "Encounters": {
+        "Easy": [
+            {
+                "Type": "SimpleEncounter",
+                "Name": "Giant Bat",
+                "Description": "A giant bat that's taken a fancy to your blood.",
+                "Image": "Monster",
+                "InDeck": 6,
+                "Attack": 6,
+                "AttackType": "Physical",
+                "Health": 10,
+                "Weakness": "None",
+                "WeaknessType": "None"
+            },
+            {
+                "Type": "SimpleEncounter",
+                "Name": "Rat Swarm",
+                "Description": "This aggressive swarm of rats looks recently diseased.",
+                "Image": "Monster",
+                "InDeck": 6,
+                "Attack": 5,
+                "AttackType": "Decay",
+                "Health": 11,
+                "Weakness": "2",
+                "WeaknessType": "Fire"
+            }
+        ],
+        "Medium": [
+            {
+                "Type": "SimpleEncounter",
+                "Name": "Zombie",
+                "Description": "A shambling pile of flesh and bones",
+                "Image": "Monster",
+                "InDeck": 6,
+                "Attack": 10,
+                "AttackType": "Physical",
+                "Health": 20,
+                "Weakness": "10",
+                "WeaknessType": "Life"
+            },
+            {
+                "Type": "CompoundEncounter",
+                "Image": "Monsters",
+                "InDeck": 3,
+                "SubCards": 2
+            }
+        ],
+        "Hard": [
+            {
+                "Type": "SimpleEncounter",
+                "Name": "Orc",
+                "Description": "These humanoids are dim-witted but incredibly strong",
+                "Image": "Monster",
+                "InDeck": 6,
+                "Attack": 20,
+                "AttackType": "Physical",
+                "Health": 30,
+                "Weakness": "None",
+                "WeaknessType": "None"
+            },
+            {
+                "Type": "SimpleEncounter",
+                "Name": "Ice Snake",
+                "Description": "It's a snake and it's cold.",
+                "Image": "Monster",
+                "InDeck": 6,
+                "Attack": 20,
+                "AttackType": "Cold",
+                "Health": 25,
+                "Weakness": "8",
+                "WeaknessType": "Fire"
+            }
+        ],
+        "Boss": [
+            {
+                "Type": "BossEncounter",
+                "Name": "Fire Dragon",
+                "Description": "A Dragon made of fire...or it is firey. It's hot.",
+                "Image": "Boss",
+                "InDeck": 1
+
+            }
+        ]
+    },
+    "Items": [
+        {
+            "Name": "Dagger of Decay",
+            "Description": "Deals an extra 1 decay damage",
+            "Image": "Weapon",
+            "InDeck": 3,
+            "DamageBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 1,
+                "Fire": 0,
+                "Cold": 0
+            },
+            "DefenseBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Cold": 0
+            }
+        },
+        {
+            "Name": "Flame Sword",
+            "Description": "Deals an extra 2 fire damage",
+            "Image": "Weapon",
+            "InDeck": 2,
+            "DamageBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 2,
+                "Cold": 0
+            },
+            "DefenseBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Cold": 0
+            }
+        }
+    ]
+}

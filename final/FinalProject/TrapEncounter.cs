@@ -1,8 +1,7 @@
 using System.Text.Json;
-public class CompoundEncounter : Encounter
+class TrapEncounter : Encounter
 {
-    public string[] _text;
-    public CompoundEncounter(JsonElement cardData) : base(cardData)
+    public TrapEncounter(JsonElement cardData) : base(cardData)
     {
 
     }

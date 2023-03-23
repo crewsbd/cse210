@@ -12,6 +12,17 @@ public class TextImage
             _textArray[y] = "".PadLeft(_width, ' ');
         }
     }
+    public void DrawChar(char character, int x, int y)
+    {
+        //_textArray[ty] = _textArray[ty].Remove(x, splitText[sy].Length); //take out
+        _textArray[y] = _textArray[y].Remove(x, 1);
+        _textArray[y] = _textArray[y].Insert(x, character.ToString()); //put in
+
+        if (_textArray[y].Length > _width)
+        {
+            _textArray[y] = _textArray[y].Substring(0, _width);
+        }
+    }
     public void Draw(string text, int x, int y)
     {
         string[] splitText = text.Split("\n");
@@ -35,6 +46,10 @@ public class TextImage
             }
             ty++;
         }
+    }
+    public void Draw(TextImage image, int x, int y)
+    {
+        Draw(image.GetString(), x, y);
     }
     public void DrawCard(int x, int y, int width, int height, Boolean stack = false)
     {
@@ -62,9 +77,9 @@ public class TextImage
             else if (ly == y + height)
             {
                 //stack effect on bottom
-                if(stack)
+                if (stack)
                 {
-                img += $" ╰{"".PadLeft(width - 2, '─')}╯";
+                    img += $" ╰{"".PadLeft(width - 2, '─')}╯";
                 }
             }
             else
@@ -90,13 +105,41 @@ public class TextImage
         }
         Draw(img, x, y);
     }
+
+    public void DrawHighlight(int x, int y, int width, int height, Boolean stack = false)
+    {
+        for (int ly = y; ly < y + height; ly++)
+        {
+            if (ly == y)
+            {
+                //fist line
+                DrawChar('╔', x, ly);
+                Draw("".PadLeft(width - 2, '═'), x+1, ly);
+                DrawChar('╗', x + width-1, ly);
+            }
+            else if (ly == y + height - 1)
+            {
+                //last line
+                DrawChar('╚', x, ly);
+                Draw("".PadLeft(width - 2, '═'), x+1, ly);
+                DrawChar('╝', x + width-1, ly);
+            }
+            else
+            {
+                //middle lines
+                DrawChar('║', x, ly);
+                DrawChar('║', x + width-1, ly);
+            }
+        }
+    }
+
     public string GetString()
     {
         return string.Join("\n", _textArray);
     }
     public void Clear()
     {
-        for(int iy = 0; iy < _height; iy++)
+        for (int iy = 0; iy < _height; iy++)
         {
             _textArray[iy] = "".PadLeft(_width, ' ');
         }
