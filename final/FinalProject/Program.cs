@@ -32,7 +32,7 @@ class Program
         Console.SetCursorPosition(0, 15);
         Console.CursorVisible = true;
         Console.Write("How many players? ");
-        int players = int.Parse(Console.ReadLine());
+        int players = Helpers.ReadInt();
         for (int ctr = 0; ctr < players; ctr++)
         {
             Console.Write($"Player {ctr + 1} name? ");
@@ -40,43 +40,5 @@ class Program
             table.AddPlayer(name);
         }
         table.StartGame();
-
-
-
-
-        /*
-               do
-               {
-
-                   int cardWidth = 13;
-                   int cardHeight = 5;
-
-                   for (int ctr = 0; ctr < 30; ctr++)
-                   {
-                       Thread.Sleep(75);
-                       buffer.Clear();
-                       buffer.DrawCard(0, 0, 80, 17, false); //clear buffer
-                       for (int x = 0; x < 3; x++)
-                       {
-                           for (int y = 0; y < 3; y++)
-                           {
-                               buffer.DrawCard(x * (cardWidth+1) + 1, y * cardHeight + 1, cardWidth, cardHeight, false);
-                           }
-
-                       }
-                       for (int x = 0; x < 5; x++)
-                       {
-                           buffer.DrawCard(x * 10, 17, 9, 7);
-                       }
-
-                       buffer.DrawCard(ctr, 4, 5, 4, false);
-                       buffer.Draw(image.GetString(), ctr, ctr);
-                       Console.Clear();
-                       Console.WriteLine(buffer.GetString());
-
-
-                   }
-               } while (true); //Just testing.   */
-
     }
 }
