@@ -5,8 +5,16 @@ class TrapEncounter : Encounter
     {
 
     }
-    public override bool Run(Player player, TextImage screen)
+    public override Boolean Run(Player player, TextImage screen)
     {
         throw new NotImplementedException();
+    }
+    public override Boolean Reject(Player player, TextImage screen)
+    {
+        throw new NotImplementedException();
+    }
+        public override Item[] GetReward()
+    {
+        return new Item[] {new Item()};
     }
 }

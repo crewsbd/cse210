@@ -1,7 +1,7 @@
 using System.Text.Json;
 public abstract class Encounter
 {
-    private string _name;
+    protected string _name;
     private string _description;
     private Item[] _rewards;
     private string _cardImage;
@@ -27,4 +27,6 @@ public abstract class Encounter
         return _card;
     }
     abstract public Boolean Run(Player player, TextImage screen);
+    abstract public Boolean Reject(Player player, TextImage screen);
+    abstract public Item[] GetReward();
 }

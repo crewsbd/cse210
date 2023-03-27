@@ -154,6 +154,37 @@ class Table
                         _gameState = GameState.FlippedEncounter;
                         _promptList = new string[] { "Do you want to play this card?", "Accept", "Reject" };
                     }
+                    else if (_gameState == GameState.FlippedEncounter) //Accepted or Rejected card
+                    {
+                        if (_promptIndex == 1) //accept
+                        {
+                            _gameState = GameState.EncounterAccepted;
+                            if (_encounters[_cursorx, _cursory].Run(_players[_currentPlayer], _tableImage)) //success
+                            {
+                                _players[_currentPlayer].GiveItems(_encounters[_cursorx, _cursory].GetReward());
+                                //Put a new card out!!!!!!!!
+
+                            }
+                            else //The encounter was a failure.
+                            {
+                                //No reward.  Damage done in encounter class? Should I follow this pattern for getting items?
+                            }
+                        }
+                        else //reject
+                        {
+                            _gameState = GameState.EncounterRejected;
+                            if (_encounters[_cursorx, _cursory].Reject(_players[_currentPlayer], _tableImage)) //Bravely ran away away.
+                            {
+                                //Can't see anything happening here.  Might end up changing
+                            }
+                            else //Bad thing happens.  Only traps do this.
+                            {
+
+                            }
+                        }
+                        _currentPlayer = (_currentPlayer + 1) % _players.Count(); //next player
+                        _gameState = GameState.StartTurn;
+                    }
                     break;
                 }
         }

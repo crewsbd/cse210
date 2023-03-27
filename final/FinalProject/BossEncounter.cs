@@ -9,4 +9,12 @@ public class BossEncounter : Encounter
     {
         throw new NotImplementedException();
     }
+       public override bool Reject(Player player, TextImage screen)
+    {
+        throw new NotImplementedException();
+    }
+        public override Item[] GetReward()
+    {
+        return new Item[] {new Item()};
+    }
 }
