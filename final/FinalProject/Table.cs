@@ -45,6 +45,10 @@ class Table
     {
         _players.Add(new Player(name, 10));
     }
+    public void NextPlayer() //I'm not going to use this
+    {
+
+    }
     public void StartGame()
     {
         Console.CursorVisible = false;
@@ -141,9 +145,10 @@ class Table
         //Draw a zoomed and flipped version of currently selected card(press enter to do so)
         if (_showingCard)
         {
-            _tableImage.DrawCard(3, 2, 35, 13);
-            _tableImage.Draw("Name\nDescription\n\nImage\n\n\n\n\n\nReward...", 5,3);
-            _tableImage.DrawCard(4, 6, 33,6);
+            /*_tableImage.DrawCard(3, 2, 35, 13);
+            _tableImage.Draw($"   Name\nDescription\n\nImage\n\n\n\n\n\nReward...", 5, 3);
+            _tableImage.DrawCard(4, 6, 33, 6); */
+            _tableImage.Draw(_encounters[_cursorx, _cursory].GetImage(), 3,2);
         }
         //Console.Clear();
         Console.SetCursorPosition(0, 0);
@@ -190,6 +195,27 @@ class Table
                 }
             }
         }
+        ShuffleDeck(ref _easyDeck);
 
+
+
+        for (int x = 0; x < 3; x++)
+        {
+            for (int y = 0; y < 3; y++)
+            {
+
+                if (_easyDeck.Count > 0)
+                {
+                    _encounters[x, y] = _easyDeck[0];
+                    _easyDeck.RemoveAt(0);
+                }
+            }
+        }
+    }
+    private void ShuffleDeck(ref List<Encounter> deck)
+    {
+        Random rnd = new Random(DateTime.Today.Millisecond);
+        deck = deck.OrderBy((card) => rnd.Next()
+        ).ToList();
     }
 }
