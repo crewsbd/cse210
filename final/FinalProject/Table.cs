@@ -57,6 +57,7 @@ class Table
     public void AddPlayer(string name)
     {
         _players.Add(new Player(name, 10));
+        _players[_players.Count()-1].GiveItems(new Item[] {new Item(), new Item(), new Item()}); //TESTING ONLY.  REMOVE THIS
     }
     public void NextPlayer() //I'm not going to use this
     {
@@ -90,9 +91,7 @@ class Table
                         {
                             _cursorx = 2;
                         }
-
                     }
-
                     break;
                 }
             case (ConsoleKey.RightArrow):

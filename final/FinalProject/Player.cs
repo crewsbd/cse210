@@ -10,10 +10,14 @@ public class Player
         _health = new Reservoir(10, 10);
         _items = new List<Item>();
     }
+    public Item[] Items
+    {
+        get { return _items.ToArray(); }
+    }
     public void InflictDamage(int amount)
     {
         _health.Subtract(amount);
-        if(_health.GetCurrent() <= 0)
+        if (_health.GetCurrent() <= 0)
         {
             _isDead = true;
         }
@@ -24,7 +28,7 @@ public class Player
     }
     public void GiveItems(Item[] newItems)
     {
-        foreach(Item item in newItems)
+        foreach (Item item in newItems)
         {
             _items.Add(item);
         }
