@@ -24,6 +24,18 @@
                 "Health": 11,
                 "Weakness": "2",
                 "WeaknessType": "Fire"
+            },
+            {
+                "Type": "SimpleEncounter",
+                "Name": "Fire Salamander",
+                "Description": "This lizard has the hots for you.",
+                "Image": "Monster",
+                "InDeck": 6,
+                "Attack": 7,
+                "AttackType": "Fire",
+                "Health": 9,
+                "Weakness": "2",
+                "WeaknessType": "Cold"
             }
         ],
         "Medium": [
