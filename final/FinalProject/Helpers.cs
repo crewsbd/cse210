@@ -8,7 +8,6 @@ public static class Helpers
         }
         return val;
     }
-<<<<<<< HEAD
     static public string WrapText(string sourceText, int targetLength)
     {
         string wrappedText = "";
@@ -26,6 +25,4 @@ public static class Helpers
         }
         return wrappedText;
     }
-=======
->>>>>>> 1885891f413add876a2ea430121bb5c7491fd091
 }
