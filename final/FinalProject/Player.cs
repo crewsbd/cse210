@@ -33,4 +33,8 @@ public class Player
     {
         return _name;
     }
+    public bool IsDead()
+    {
+        return _isDead;
+    }
 }

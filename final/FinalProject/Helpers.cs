@@ -16,11 +16,11 @@ public static class Helpers
         {
             if((wrappedText+splitString[word]).Length > targetLength)
             {
-                wrappedText += $"\n{splitString[word] }";
+                wrappedText += $"\n{splitString[word]} ";
             }
             else
             {
-            wrappedText += $"\n{splitString[word] }";
+            wrappedText += $"{splitString[word]} ";
             }
         }
         return wrappedText;

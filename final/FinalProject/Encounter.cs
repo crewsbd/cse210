@@ -14,7 +14,7 @@ public abstract class Encounter
         _card = new TextImage(35, 13);
 
         _card.DrawCard(0, 0, 35, 13);
-            _card.Draw($"{_name}\n{_description}\n\n{_cardImage}\n\n\n\n\n\nReward...", 1, 1);
+            _card.Draw($"{_name}\n{Helpers.WrapText(_description,30)}\n\n{_cardImage}\n\n\n\n\n\nReward...", 1, 1);
             _card.DrawCard(1, 4, 33, 6);
 
 
