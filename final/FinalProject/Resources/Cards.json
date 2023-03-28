@@ -11,7 +11,8 @@
                 "AttackType": "Physical",
                 "Health": 10,
                 "Weakness": "None",
-                "WeaknessType": "None"
+                "WeaknessType": "None",
+                "Rewards": ["Small Health Potion"]
             },
             {
                 "Type": "SimpleEncounter",
@@ -23,7 +24,8 @@
                 "AttackType": "Decay",
                 "Health": 11,
                 "Weakness": "2",
-                "WeaknessType": "Fire"
+                "WeaknessType": "Fire",
+                "Rewards": ["Small Health Potion"]
             },
             {
                 "Type": "SimpleEncounter",
@@ -35,7 +37,21 @@
                 "AttackType": "Fire",
                 "Health": 9,
                 "Weakness": "2",
-                "WeaknessType": "Cold"
+                "WeaknessType": "Cold",
+                "Rewards": ["Flame Sword"]
+            },
+            {
+                "Type": "SimpleEncounter",
+                "Name": "Skeleton",
+                "Description": "This guy has a shielf. Intimidating.",
+                "Image": "Monster",
+                "InDeck": 6,
+                "Attack": 8,
+                "AttackType": "Physical",
+                "Health": 10,
+                "Weakness": "2",
+                "WeaknessType": "Life",
+                "Rewards": ["Small Shield"]
             }
         ],
         "Medium": [
@@ -49,13 +65,15 @@
                 "AttackType": "Physical",
                 "Health": 20,
                 "Weakness": "10",
-                "WeaknessType": "Life"
+                "WeaknessType": "Life",
+                "Rewards": ["Dagger of Decay"]
             },
             {
                 "Type": "CompoundEncounter",
                 "Image": "Monsters",
                 "InDeck": 3,
-                "SubCards": 2
+                "SubCards": 2,
+                "Rewards": ["Small Health Potion"]
             }
         ],
         "Hard": [
@@ -69,7 +87,8 @@
                 "AttackType": "Physical",
                 "Health": 30,
                 "Weakness": "None",
-                "WeaknessType": "None"
+                "WeaknessType": "None",
+                "Rewards": ["Small Health Potion"]
             },
             {
                 "Type": "SimpleEncounter",
@@ -81,7 +100,8 @@
                 "AttackType": "Cold",
                 "Health": 25,
                 "Weakness": "8",
-                "WeaknessType": "Fire"
+                "WeaknessType": "Fire",
+                "Rewards": ["Small Health Potion"]
             }
         ],
         "Boss": [
@@ -90,50 +110,94 @@
                 "Name": "Fire Dragon",
                 "Description": "A Dragon made of fire...or it is firey. It's hot.",
                 "Image": "Boss",
-                "InDeck": 1
-
+                "InDeck": 1,
+                "Rewards": ["Small Health Potion"]
             }
         ]
     },
     "Items": [
         {
+            "Name": "Small Shield",
+            "Description": "Reduces physical damage by 2",
+            "SingleUse": false,
+            "Image": "Shield",
+            "HealthBonus": 0,
+            "DamageBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
+            },
+            "DefenseBonuses": {
+                "Physical": 2,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
+            }
+        },
+        {
             "Name": "Dagger of Decay",
             "Description": "Deals an extra 1 decay damage",
+            "SingleUse": false,
             "Image": "Weapon",
-            "InDeck": 3,
+            "HealthBonus": 0,
             "DamageBonuses": {
                 "Physical": 0,
                 "Life": 0,
                 "Decay": 1,
                 "Fire": 0,
-                "Cold": 0
+                "Ice": 0
             },
             "DefenseBonuses": {
                 "Physical": 0,
                 "Life": 0,
                 "Decay": 0,
                 "Fire": 0,
-                "Cold": 0
+                "Ice": 0
             }
         },
         {
             "Name": "Flame Sword",
             "Description": "Deals an extra 2 fire damage",
+            "SingleUse": false,
             "Image": "Weapon",
-            "InDeck": 2,
+            "HealthBonus": 0,
             "DamageBonuses": {
                 "Physical": 0,
                 "Life": 0,
                 "Decay": 0,
                 "Fire": 2,
-                "Cold": 0
+                "Ice": 0
             },
             "DefenseBonuses": {
                 "Physical": 0,
                 "Life": 0,
                 "Decay": 0,
                 "Fire": 0,
-                "Cold": 0
+                "Ice": 0
+            }
+        },
+        {
+            "Name": "Small Health Potion",
+            "Description": "Recover 5 health during an encounter",
+            "SingleUse": true,
+            "Image": "Potion",
+            "HealthBonus": 5,
+            "DamageBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
+            },
+            "DefenseBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
             }
         }
     ]

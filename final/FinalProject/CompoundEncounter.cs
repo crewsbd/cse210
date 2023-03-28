@@ -2,7 +2,7 @@ using System.Text.Json;
 public class CompoundEncounter : Encounter
 {
     public string[] _text;
-    public CompoundEncounter(JsonElement cardData) : base(cardData)
+    public CompoundEncounter(JsonElement cardData, Item[] itemList) : base(cardData, itemList)
     {
 
     }
@@ -16,6 +16,6 @@ public class CompoundEncounter : Encounter
     }
         public override Item[] GetReward()
     {
-        return new Item[] {new Item()};
+        return _rewards;
     }
 }

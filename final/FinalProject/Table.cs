@@ -13,7 +13,7 @@ class Table
     private List<Encounter> _mediumDeck;
     private List<Encounter> _hardDeck;
     private List<Encounter> _bossDeck;
-    private List<Item> _itemDeck;
+    private List<Item> _items;
     private TextImage _tableImage;
     private string[] _promptList;
     private int _promptIndex;
@@ -47,7 +47,7 @@ class Table
         _mediumDeck = new List<Encounter>();
         _hardDeck = new List<Encounter>();
         _bossDeck = new List<Encounter>();
-        _itemDeck = new List<Item>();
+        _items = new List<Item>();
         _gameState = GameState.StartTurn;
         _promptIndex = 1;
         _promptList = new string[] { "Default Prompt", "1", "2" };
@@ -57,7 +57,7 @@ class Table
     public void AddPlayer(string name)
     {
         _players.Add(new Player(name, 10));
-        _players[_players.Count()-1].GiveItems(new Item[] {new Item(), new Item(), new Item()}); //TESTING ONLY.  REMOVE THIS
+        //_players[_players.Count()-1].GiveItems(new Item[] {new Item(), new Item(), new Item()}); //TESTING ONLY.  REMOVE THIS
     }
     public void NextPlayer() //I'm not going to use this
     {
@@ -231,6 +231,13 @@ class Table
         string deckFile = File.ReadAllText("Resources/Cards.json");
         JsonElement deckData = JsonDocument.Parse(deckFile).RootElement;
 
+        JsonElement items = deckData.GetProperty("Items"); //Start loading the items. One of each
+        for (int i = 0; i < items.GetArrayLength(); i++)
+        {
+            JsonElement currentCard = items[i];
+            _items.Add(new Item(currentCard));
+        }
+
         JsonElement easyCards = deckData.GetProperty("Encounters").GetProperty("Easy");
         for (int i = 0; i < easyCards.GetArrayLength(); i++)
         {
@@ -242,28 +249,28 @@ class Table
             {   //Load a simple card set
                 for (int num = 0; num < inDeck; num++)
                 {
-                    _easyDeck.Add(new SimpleEncounter(currentCard));
+                    _easyDeck.Add(new SimpleEncounter(currentCard, _items.ToArray()));
                 }
             }
             else if (type == "CompoundEncounter")
             {
                 for (int num = 0; num < inDeck; num++)
                 {
-                    _easyDeck.Add(new CompoundEncounter(currentCard));
+                    _easyDeck.Add(new CompoundEncounter(currentCard, _items.ToArray()));
                 }
             }
             else if (type == "BossEncounter")
             {
                 for (int num = 0; num < inDeck; num++)
                 {
-                    _easyDeck.Add(new BossEncounter(currentCard));
+                    _easyDeck.Add(new BossEncounter(currentCard, _items.ToArray()));
                 }
             }
             else if (type == "TrapEncounter")
             {
                 for (int num = 0; num < inDeck; num++)
                 {
-                    _easyDeck.Add(new TrapEncounter(currentCard));
+                    _easyDeck.Add(new TrapEncounter(currentCard, _items.ToArray()));
                 }
             }
         }
@@ -271,6 +278,9 @@ class Table
 
 
 
+
+
+        //Deal to the dungeon grid
         for (int x = 0; x < 3; x++)
         {
             for (int y = 0; y < 3; y++)

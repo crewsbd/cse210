@@ -1,7 +1,7 @@
 using System.Text.Json;
 public class BossEncounter : Encounter
 {
-    public BossEncounter(JsonElement cardData) : base(cardData)
+    public BossEncounter(JsonElement cardData, Item[] itemsList) : base(cardData, itemsList)
     {
 
     }
@@ -15,6 +15,6 @@ public class BossEncounter : Encounter
     }
         public override Item[] GetReward()
     {
-        return new Item[] {new Item()};
+        return _rewards;
     }
 }

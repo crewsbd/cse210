@@ -1,7 +1,7 @@
 using System.Text.Json;
 class TrapEncounter : Encounter
 {
-    public TrapEncounter(JsonElement cardData) : base(cardData)
+    public TrapEncounter(JsonElement cardData, Item[] itemsList) : base(cardData, itemsList)
     {
 
     }
@@ -15,6 +15,6 @@ class TrapEncounter : Encounter
     }
         public override Item[] GetReward()
     {
-        return new Item[] {new Item()};
+        return _rewards;
     }
 }

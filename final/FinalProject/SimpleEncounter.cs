@@ -1,7 +1,7 @@
 using System.Text.Json;
 class SimpleEncounter : Encounter
 {
-    public SimpleEncounter(JsonElement cardData) : base(cardData)
+    public SimpleEncounter(JsonElement cardData, Item[] items) : base(cardData, items)
     {
 
     }
@@ -14,7 +14,7 @@ class SimpleEncounter : Encounter
         Console.ReadKey();
         if (player.Items.Count() > 0) //Begin item select loop
         {
-            screen.Draw("Pick the cards you will use.", 3, 4);
+            screen.Draw("Pick the cards you will use.", 3, 4);  //Need to filter this list to only one-use cards
             Update(screen);
             int focusedCard = 0; //Which card we looking at?
             Boolean[] selectedCards = new Boolean[player.Items.Count()]; //track selected card
@@ -59,8 +59,10 @@ class SimpleEncounter : Encounter
                 }
             } while (selectingCards);
         }
-        return true;
 
+        //Temp debug. This needs to be on condition of success.
+        player.GiveItems(_rewards);
+        return true;
     }
     public override Boolean Reject(Player player, TextImage screen)
     {
@@ -68,7 +70,7 @@ class SimpleEncounter : Encounter
     }
     public override Item[] GetReward()
     {
-        return new Item[] { new Item() };
+        return _rewards;
     }
     private void Update(TextImage buffer)
     {
