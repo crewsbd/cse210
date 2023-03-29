@@ -45,6 +45,14 @@ public class Item
     {
         get { return _maxCarried; }
     }
+    public Dictionary<string, int> GetDamageBonuses()
+    {
+        return _damageBonuses;
+    }
+    public Dictionary<string, int> GetDefenseBonuses()
+    {
+        return _defenseBonuses;
+    }
 
 
 }

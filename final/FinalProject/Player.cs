@@ -75,4 +75,66 @@ public class Player
             return false;
         }
     }
+    public string PlayerStatsDisplay()
+    {
+        Dictionary<string, int> damageB = GetDamageBonuses();
+
+        Dictionary<string, int> defenseB = GetDefenseBonuses();
+
+        TextImage img = new TextImage(20, 10);
+        img.Draw(_name, 1, 1);
+        img.Draw($"HP: {_health.Value.ToString()}/{_health.Value.ToString()}", 1, 2);
+        img.Draw("      DMG DEF", 1, 2);
+        img.Draw($"Phy:  {damageB["Physical"]}", 1, 3);
+        img.Draw($"Lif:  {damageB["Life"]}", 1, 4);
+        img.Draw($"Dec:  {damageB["Decay"]}", 1, 5);
+        img.Draw($"Fir:  {damageB["Fire"]}", 1, 6);
+        img.Draw($"Ice:  {damageB["Ice"]}", 1, 7);
+
+        img.Draw($"{defenseB["Physical"]}", 11, 3);
+        img.Draw($"{defenseB["Life"]}", 11, 4);
+        img.Draw($"{defenseB["Decay"]}", 11, 5);
+        img.Draw($"{defenseB["Fire"]}", 11, 6);
+        img.Draw($"{defenseB["Ice"]}", 11, 7);
+        return img.GetString();
+    }
+    public Dictionary<string, int> GetDamageBonuses()
+    {
+        Dictionary<string, int> bonuses = new Dictionary<string, int>();
+        bonuses["Physical"] = 0;
+        bonuses["Life"] = 0;
+        bonuses["Decay"] = 0;
+        bonuses["Fire"] = 0;
+        bonuses["Ice"] = 0;
+        foreach (Item item in _items)
+        {
+            Dictionary<string, int> itemBonuses = item.GetDamageBonuses();
+            bonuses["Physical"] += itemBonuses["Physical"];
+            bonuses["Life"] += itemBonuses["Life"];
+            bonuses["Decay"] += itemBonuses["Decay"];
+            bonuses["Fire"] += itemBonuses["Fire"];
+            bonuses["Ice"] += itemBonuses["Ice"];
+        }
+        return bonuses;
+    }
+    public Dictionary<string, int> GetDefenseBonuses()
+    {
+        Dictionary<string, int> bonuses = new Dictionary<string, int>();
+        bonuses["Physical"] = 0;
+        bonuses["Life"] = 0;
+        bonuses["Decay"] = 0;
+        bonuses["Fire"] = 0;
+        bonuses["Ice"] = 0;
+        foreach (Item item in _items)
+        {
+            Dictionary<string, int> itemBonuses = item.GetDefenseBonuses();
+            bonuses["Physical"] += itemBonuses["Physical"];
+            bonuses["Life"] += itemBonuses["Life"];
+            bonuses["Decay"] += itemBonuses["Decay"];
+            bonuses["Fire"] += itemBonuses["Fire"];
+            bonuses["Ice"] += itemBonuses["Ice"];
+        }
+        return bonuses;
+    }
+
 }

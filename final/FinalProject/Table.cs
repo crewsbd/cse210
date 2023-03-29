@@ -211,6 +211,7 @@ class Table
         _tableImage.Draw($"┨ Current Player: {_players[_currentPlayer].Name()} HP: {_players[_currentPlayer].Health}/{_players[_currentPlayer].MaxHealth}  ┠", 2, 0);
         //Draw currently selected card
         _tableImage.DrawHighlight(_cursorx * (_cardLandscapeX + _gap) + 1, _cursory * (_cardLandscapeY + _gap) + 1, _cardLandscapeX, _cardLandscapeY);
+        _tableImage.Draw(_players[_currentPlayer].PlayerStatsDisplay(),40, 3);
 
         //Draw a zoomed and flipped version of currently selected card(press enter to do so)
         if (_gameState == GameState.FlippedEncounter)
