@@ -71,10 +71,10 @@ class Table
         do
         {
             DrawTable();
-            HandleInput();
+            Logic();
         } while (!gameOver);
     }
-    private void HandleInput()
+    private void Logic()
     {
         Console.CursorVisible = false;
         Console.SetCursorPosition(0, 0);

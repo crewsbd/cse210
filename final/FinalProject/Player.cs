@@ -26,6 +26,10 @@ public class Player
     {
         _health.Add(amount);
     }
+    public void RemoveItem(int index)
+    {
+        _items.RemoveAt(index);
+    }
     public void GiveItems(Item[] newItems)
     {
         foreach (Item item in newItems)

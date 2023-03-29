@@ -29,13 +29,15 @@ public class Item
         _defenseBonuses["Decay"] = cardData.GetProperty("DefenseBonuses").GetProperty("Decay").GetInt32();
         _defenseBonuses["Fire"] = cardData.GetProperty("DefenseBonuses").GetProperty("Fire").GetInt32();
         _defenseBonuses["Ice"] = cardData.GetProperty("DefenseBonuses").GetProperty("Ice").GetInt32();
-        
+
     }
-    public string Name 
+    public string Name
     {
-        get {
-            return _name;
-        }
+        get { return _name; }
+    }
+    public Boolean SingleUse
+    {
+        get { return _singleUse; }
     }
 
 
