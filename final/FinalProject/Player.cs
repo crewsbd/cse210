@@ -17,7 +17,7 @@ public class Player
     public void InflictDamage(int amount)
     {
         _health.Subtract(amount);
-        if (_health.GetCurrent() <= 0)
+        if (_health.Value <= 0)
         {
             _isDead = true;
         }
@@ -34,15 +34,45 @@ public class Player
     {
         foreach (Item item in newItems)
         {
-            _items.Add(item);
+            if (!IsItemMaxed(item))
+            {
+                _items.Add(item);
+            }
         }
     }
     public string Name()
     {
         return _name;
     }
+    public int Health
+    {
+        get { return _health.Value; }
+    }
+    public int MaxHealth
+    {
+        get { return _health.Max; }
+    }
     public bool IsDead()
     {
         return _isDead;
+    }
+    private Boolean IsItemMaxed(Item item)
+    {
+        int itemCount = 0;
+        for (int i = 0; i < _items.Count(); i++)
+        {
+            if (_items[i].Name == item.Name)
+            {
+                itemCount++;
+            }
+        }
+        if (itemCount >= item.MaxCarried)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

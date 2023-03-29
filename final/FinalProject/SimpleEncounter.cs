@@ -119,6 +119,7 @@ class SimpleEncounter : Encounter
 
         //Temp debug. This needs to be on condition of success.
         player.GiveItems(_rewards);
+        player.InflictDamage(1);  //Testing
 
 
 

@@ -122,6 +122,7 @@
             "SingleUse": false,
             "Image": "Shield",
             "HealthBonus": 0,
+            "MaxCarried": 1,
             "DamageBonuses": {
                 "Physical": 0,
                 "Life": 0,
@@ -143,6 +144,7 @@
             "SingleUse": false,
             "Image": "Weapon",
             "HealthBonus": 0,
+            "MaxCarried": 1,
             "DamageBonuses": {
                 "Physical": 0,
                 "Life": 0,
@@ -164,6 +166,7 @@
             "SingleUse": false,
             "Image": "Weapon",
             "HealthBonus": 0,
+            "MaxCarried": 1,
             "DamageBonuses": {
                 "Physical": 0,
                 "Life": 0,
@@ -185,6 +188,7 @@
             "SingleUse": true,
             "Image": "Potion",
             "HealthBonus": 5,
+            "MaxCarried": 5,
             "DamageBonuses": {
                 "Physical": 0,
                 "Life": 0,

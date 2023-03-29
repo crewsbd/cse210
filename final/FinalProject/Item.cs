@@ -6,6 +6,7 @@ public class Item
     private string _image;
     private Boolean _singleUse;
     private int _healthBonus;
+    private int _maxCarried;
     private Dictionary<string, int> _damageBonuses;
     private Dictionary<string, int> _defenseBonuses;
     public Item(JsonElement cardData)
@@ -15,6 +16,7 @@ public class Item
         _singleUse = cardData.GetProperty("SingleUse").GetBoolean();
         _image = cardData.GetProperty("Image").GetString();
         _healthBonus = cardData.GetProperty("HealthBonus").GetInt32();
+        _maxCarried = cardData.GetProperty("MaxCarried").GetInt32();
         _damageBonuses = new Dictionary<string, int>();
         _defenseBonuses = new Dictionary<string, int>();
 
@@ -38,6 +40,10 @@ public class Item
     public Boolean SingleUse
     {
         get { return _singleUse; }
+    }
+    public int MaxCarried
+    {
+        get { return _maxCarried; }
     }
 
 

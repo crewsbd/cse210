@@ -160,7 +160,6 @@ class Table
                             _gameState = GameState.EncounterAccepted;
                             if (_encounters[_cursorx, _cursory].Run(_players[_currentPlayer], _tableImage)) //success
                             {
-                                _players[_currentPlayer].GiveItems(_encounters[_cursorx, _cursory].GetReward());
                                 //Put a new card out!!!!!!!!
 
                             }
@@ -202,13 +201,14 @@ class Table
             }
         }
         //Draw hand
-        for (int x = 0; x < 6; x++)
+        for (int c = 0; c < _players[_currentPlayer].Items.Count(); c++)
         {
-            _tableImage.DrawCard(x * (_cardPortaitX + _gap) + 1, 16, _cardPortaitX, _cardPortraitY);
+            _tableImage.DrawCard(c * (_cardPortaitX + _gap) + 1, 16, _cardPortaitX, _cardPortraitY);
+            _tableImage.Draw(Helpers.WrapText(_players[_currentPlayer].Items[c].Name, _cardPortaitX-2), c * (_cardPortaitX + _gap) + 2, 17);
         }
 
         //Draw current player
-        _tableImage.Draw($"┨ Current Player: {_players[_currentPlayer].Name()} ┠", 2, 0);
+        _tableImage.Draw($"┨ Current Player: {_players[_currentPlayer].Name()} HP: {_players[_currentPlayer].Health}/{_players[_currentPlayer].MaxHealth}  ┠", 2, 0);
         //Draw currently selected card
         _tableImage.DrawHighlight(_cursorx * (_cardLandscapeX + _gap) + 1, _cursory * (_cardLandscapeY + _gap) + 1, _cardLandscapeX, _cardLandscapeY);
 

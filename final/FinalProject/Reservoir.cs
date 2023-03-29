@@ -10,13 +10,17 @@ class Reservoir
         _max = max;
         Add(0); //easy check that max isnt exceeded
     }
-    public int GetCurrent()
+    public int Base
     {
-        return _current;
+        get { return _current;}
     }
-    public int GetValue()
+    public int Value
     {
-        return _current + _boost;
+        get { return _current + _boost; }
+    }
+    public int Max
+    {
+        get { return _max; }
     }
     public void Add(int value)
     {
