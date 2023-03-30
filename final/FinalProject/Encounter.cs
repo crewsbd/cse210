@@ -6,12 +6,14 @@ public abstract class Encounter
     protected Item[] _rewards;
     private string _cardImage;
     private TextImage _card;
-    public Encounter(JsonElement cardData, Item[] itemsList)
+    protected Table _table;
+    public Encounter(JsonElement cardData, Item[] itemsList, Table table)
     {
         _name = cardData.GetProperty("Name").GetString();
         _description = cardData.GetProperty("Description").GetString();
         _cardImage = File.ReadAllText("Resources/" + cardData.GetProperty("Image").GetString() + ".txt");
         _card = new TextImage(35, 13);
+        _table = table;
 
 
     //This loop is getting all rewards.

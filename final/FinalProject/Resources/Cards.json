@@ -70,6 +70,8 @@
             },
             {
                 "Type": "CompoundEncounter",
+                "Name": "Monster Group",
+                "Description": "It's a party in here!",
                 "Image": "Monsters",
                 "InDeck": 3,
                 "SubCards": 2,

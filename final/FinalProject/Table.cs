@@ -1,5 +1,5 @@
 using System.Text.Json;
-class Table
+public class Table
 {
     private int _width, _height;
     private int _currentPlayer;
@@ -52,6 +52,9 @@ class Table
         _promptIndex = 1;
         _promptList = new string[] { "Default Prompt", "1", "2" };
         LoadDecks();
+        ShuffleDecks();
+
+        PlaceDungeon();
 
     }
     public void AddPlayer(string name)
@@ -68,6 +71,8 @@ class Table
         Console.CursorVisible = false;
         Console.Clear();
         Boolean gameOver = false;
+        TrimDecks(); //Make decks appropriate for play count
+        InsertBoss(); //Put a boss in hard deck
         do
         {
             DrawTable();
@@ -161,6 +166,22 @@ class Table
                             if (_encounters[_cursorx, _cursory].Run(_players[_currentPlayer], _tableImage)) //success
                             {
                                 //Put a new card out!!!!!!!!
+                                if (_easyDeck.Count > 0)
+                                {
+                                    _encounters[_cursorx, _cursory] = Helpers.ListPop(_easyDeck);
+                                }
+                                else if (_mediumDeck.Count > 0)
+                                {
+                                    _encounters[_cursorx, _cursory] = Helpers.ListPop(_mediumDeck);
+                                }
+                                else if (_hardDeck.Count > 0)
+                                {
+                                    _encounters[_cursorx, _cursory] = Helpers.ListPop(_hardDeck);
+                                }
+                                else
+                                {
+                                    //What do I do if no cards left?
+                                }
 
                             }
                             else //The encounter was a failure.
@@ -204,14 +225,14 @@ class Table
         for (int c = 0; c < _players[_currentPlayer].Items.Count(); c++)
         {
             _tableImage.DrawCard(c * (_cardPortaitX + _gap) + 1, 16, _cardPortaitX, _cardPortraitY);
-            _tableImage.Draw(Helpers.WrapText(_players[_currentPlayer].Items[c].Name, _cardPortaitX-2), c * (_cardPortaitX + _gap) + 2, 17);
+            _tableImage.Draw(Helpers.WrapText(_players[_currentPlayer].Items[c].Name, _cardPortaitX - 2), c * (_cardPortaitX + _gap) + 2, 17);
         }
 
         //Draw current player
         _tableImage.Draw($"┨ Current Player: {_players[_currentPlayer].Name()} HP: {_players[_currentPlayer].Health}/{_players[_currentPlayer].MaxHealth}  ┠", 2, 0);
         //Draw currently selected card
         _tableImage.DrawHighlight(_cursorx * (_cardLandscapeX + _gap) + 1, _cursory * (_cardLandscapeY + _gap) + 1, _cardLandscapeX, _cardLandscapeY);
-        _tableImage.Draw(_players[_currentPlayer].PlayerStatsDisplay(),40, 3);
+        _tableImage.Draw(_players[_currentPlayer].PlayerStatsDisplay(), 40, 3);
 
         //Draw a zoomed and flipped version of currently selected card(press enter to do so)
         if (_gameState == GameState.FlippedEncounter)
@@ -232,17 +253,40 @@ class Table
         string deckFile = File.ReadAllText("Resources/Cards.json");
         JsonElement deckData = JsonDocument.Parse(deckFile).RootElement;
 
-        JsonElement items = deckData.GetProperty("Items"); //Start loading the items. One of each
+        JsonElement items = deckData.GetProperty("Items"); //Start loading the items. One of each. Must happend before loading encounters
         for (int i = 0; i < items.GetArrayLength(); i++)
         {
             JsonElement currentCard = items[i];
             _items.Add(new Item(currentCard));
         }
+        LoadDeck(ref _easyDeck, deckData.GetProperty("Encounters").GetProperty("Easy"));
+        LoadDeck(ref _mediumDeck, deckData.GetProperty("Encounters").GetProperty("Medium"));
+        LoadDeck(ref _hardDeck, deckData.GetProperty("Encounters").GetProperty("Hard"));
+        LoadDeck(ref _bossDeck, deckData.GetProperty("Encounters").GetProperty("Boss"));
+    }
 
-        JsonElement easyCards = deckData.GetProperty("Encounters").GetProperty("Easy");
-        for (int i = 0; i < easyCards.GetArrayLength(); i++)
+    private void ShuffleDecks()
+    {
+        ShuffleDeck(ref _easyDeck);
+        ShuffleDeck(ref _mediumDeck);
+        ShuffleDeck(ref _hardDeck);
+        ShuffleDeck(ref _bossDeck);
+    }
+    private void TrimDecks()
+    {
+        _easyDeck = _easyDeck.GetRange(0, _players.Count * 3);
+        _mediumDeck = _mediumDeck.GetRange(0, _players.Count * 3);
+        _hardDeck = _hardDeck.GetRange(0, _players.Count * 3);
+    }
+    private void InsertBoss()
+    {
+        _hardDeck.Insert(new Random(DateTime.Now.Millisecond).Next(_players.Count() * 3), _bossDeck[0]);
+    }
+    private void LoadDeck(ref List<Encounter> deck, JsonElement json)
+    {
+        for (int i = 0; i < json.GetArrayLength(); i++)
         {
-            JsonElement currentCard = easyCards[i];
+            JsonElement currentCard = json[i];
             string type = currentCard.GetProperty("Type").GetString();
             int inDeck = currentCard.GetProperty("InDeck").GetInt32();
 
@@ -250,48 +294,40 @@ class Table
             {   //Load a simple card set
                 for (int num = 0; num < inDeck; num++)
                 {
-                    _easyDeck.Add(new SimpleEncounter(currentCard, _items.ToArray()));
+                    deck.Add(new SimpleEncounter(currentCard, _items.ToArray(), this));
                 }
             }
             else if (type == "CompoundEncounter")
             {
                 for (int num = 0; num < inDeck; num++)
                 {
-                    _easyDeck.Add(new CompoundEncounter(currentCard, _items.ToArray()));
+                    deck.Add(new CompoundEncounter(currentCard, _items.ToArray(), this));
                 }
             }
             else if (type == "BossEncounter")
             {
                 for (int num = 0; num < inDeck; num++)
                 {
-                    _easyDeck.Add(new BossEncounter(currentCard, _items.ToArray()));
+                    deck.Add(new BossEncounter(currentCard, _items.ToArray(), this));
                 }
             }
             else if (type == "TrapEncounter")
             {
                 for (int num = 0; num < inDeck; num++)
                 {
-                    _easyDeck.Add(new TrapEncounter(currentCard, _items.ToArray()));
+                    deck.Add(new TrapEncounter(currentCard, _items.ToArray(), this));
                 }
             }
         }
-        ShuffleDeck(ref _easyDeck);
-
-
-
-
-
+    }
+    public void PlaceDungeon()
+    {
         //Deal to the dungeon grid
         for (int x = 0; x < 3; x++)
         {
             for (int y = 0; y < 3; y++)
             {
-
-                if (_easyDeck.Count > 0)
-                {
-                    _encounters[x, y] = _easyDeck[0];
-                    _easyDeck.RemoveAt(0);
-                }
+                _encounters[x, y] = GetNextCard();
             }
         }
     }
@@ -301,6 +337,44 @@ class Table
         deck = deck.OrderBy((card) => rnd.Next()
         ).ToList();
     }
+    public Encounter GetNextCard()
+    {
+        Encounter nextCard;
+        if (_easyDeck.Count > 0)
+        {
+            nextCard = Helpers.ListPop(_easyDeck);
+        }
+        else if (_mediumDeck.Count > 0)
+        {
+            nextCard = Helpers.ListPop(_mediumDeck);
+        }
+        else if (_hardDeck.Count > 0)
+        {
+            nextCard = Helpers.ListPop(_hardDeck);
+        }
+        else
+        {
+            //What do I do if no cards left?
+            string generoString = @"{
+                ""Type"": ""SimpleEncounter"",
+                ""Name"": ""Genero"",
+                ""Description"": ""Who's this guy?"",
+                ""Image"": ""Monster"",
+                ""InDeck"": 6,
+                ""Attack"": 1,
+                ""AttackType"": ""Physical"",
+                ""Health"": 1,
+                ""Weakness"": ""None"",
+                ""WeaknessType"": ""None"",
+                ""Rewards"": [""Small Health Potion""]
+            }";
+            JsonElement genero = JsonDocument.Parse(generoString).RootElement;
+
+            nextCard = new SimpleEncounter(genero, _items.ToArray(), this);
+        }
+        return nextCard;
+    }
+
     private string RenderPrompt()
     {
         string returnString = _promptList[0];

@@ -1,7 +1,7 @@
 using System.Text.Json;
 class TrapEncounter : Encounter
 {
-    public TrapEncounter(JsonElement cardData, Item[] itemsList) : base(cardData, itemsList)
+    public TrapEncounter(JsonElement cardData, Item[] itemsList, Table table) : base(cardData, itemsList, table)
     {
 
     }

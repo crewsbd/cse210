@@ -25,4 +25,10 @@ public static class Helpers
         }
         return wrappedText;
     }
+    static public Encounter ListPop(List<Encounter> deck)
+    {
+        Encounter popped = deck[0];
+        deck.RemoveAt(0);
+        return popped;
+    }
 }

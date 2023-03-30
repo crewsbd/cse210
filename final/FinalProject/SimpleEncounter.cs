@@ -1,7 +1,7 @@
 using System.Text.Json;
 class SimpleEncounter : Encounter
 {
-    public SimpleEncounter(JsonElement cardData, Item[] items) : base(cardData, items)
+    public SimpleEncounter(JsonElement cardData, Item[] items, Table table) : base(cardData, items, table)
     {
 
     }
@@ -130,7 +130,7 @@ class SimpleEncounter : Encounter
     {
         return true;
     }
-    public override Item[] GetReward()
+    public override Item[] GetReward() //Not going to use this
     {
         return _rewards;
     }
