@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 public class Player
 {
     private string _name;
@@ -9,6 +11,32 @@ public class Player
         _name = name;
         _health = new Reservoir(10, 10);
         _items = new List<Item>();
+        //Give the player a starter weapon
+        string swordString = @"{ 
+            ""Name"": ""Heroes Sword"",
+            ""Description"": ""Just a basic sword."",
+            ""SingleUse"": false,
+            ""Image"": ""Weapon"",
+            ""HealthBonus"": 0,
+            ""MaxCarried"": 1,
+            ""DamageBonuses"": {
+                ""Physical"": 2,
+                ""Life"": 0,
+                ""Decay"": 0,
+                ""Fire"": 0,
+                ""Ice"": 0
+            },
+            ""DefenseBonuses"": {
+                ""Physical"": 0,
+                ""Life"": 0,
+                ""Decay"": 0,
+                ""Fire"": 0,
+                ""Ice"": 0
+            }
+        }";
+        JsonElement sword = JsonDocument.Parse(swordString).RootElement;
+
+        _items.Add(new Item(sword));
     }
     public Item[] Items
     {

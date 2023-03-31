@@ -1,9 +1,27 @@
 using System.Text.Json;
 class SimpleEncounter : Encounter
 {
+    private int _health;
+    private Dictionary<string, int> _damageBonuses;
+    private Dictionary<string, int> _defenseBonuses;
     public SimpleEncounter(JsonElement cardData, Item[] items, Table table) : base(cardData, items, table)
     {
+        _health = cardData.GetProperty("Health").GetInt32();
+        _damageBonuses = new Dictionary<string, int>();
+        _defenseBonuses = new Dictionary<string, int>();
+        JsonElement dmgB = cardData.GetProperty("DamageBonuses");
+        JsonElement defB = cardData.GetProperty("DefenseBonuses");
+        _damageBonuses["Physical"] = dmgB.GetProperty("Physical").GetInt32();
+        _damageBonuses["Life"] = dmgB.GetProperty("Life").GetInt32();
+        _damageBonuses["Decay"] = dmgB.GetProperty("Decay").GetInt32();
+        _damageBonuses["Fire"] = dmgB.GetProperty("Fire").GetInt32();
+        _damageBonuses["Ice"] = dmgB.GetProperty("Ice").GetInt32();
 
+        _defenseBonuses["Physical"] = defB.GetProperty("Physical").GetInt32();
+        _defenseBonuses["Life"] = defB.GetProperty("Life").GetInt32();
+        _defenseBonuses["Decay"] = defB.GetProperty("Decay").GetInt32();
+        _defenseBonuses["Fire"] = defB.GetProperty("Fire").GetInt32();
+        _defenseBonuses["Ice"] = defB.GetProperty("Ice").GetInt32();
     }
     public override Boolean Run(Player player, TextImage screen)
     {
@@ -13,6 +31,7 @@ class SimpleEncounter : Encounter
         Update(screen);
         Console.ReadKey();
 
+        //ITEM SELECTION START---------------------------------------------------
         //Select only single use items
         List<Item> singleUseItems = new List<Item>();
         List<int> singleUseItemOriginalIndex = new List<int>();
@@ -99,32 +118,76 @@ class SimpleEncounter : Encounter
                     }
                 }
             } while (selectingCards);
-            for(int c = 0; c < selectedCards.Count(); c++)
+            for (int c = 0; c < selectedCards.Count(); c++)
             {
-                if(selectedCards[c]) //if this single use item was selected
+                if (selectedCards[c]) //if this single use item was selected
                 {
-                    player.RemoveItem(singleUseItemOriginalIndex[c]-c); //Remove the used card from the player
+                    player.RemoveItem(singleUseItemOriginalIndex[c] - c); //Remove the used card from the player
                 }
             }
         }
+        //ITEM SELECTION END----------------------------------------------------
 
         /*Run card 
         1. Get all buffs from cards 
-        2. Check to see if enemy defeated in one shot
+        2. Loop between player and enemy.
         2. a If not, player damaged. 
         2. b Use potions
         //3. See if player survives
         */
 
+        //Get buffs
+        Dictionary<string, int> dmgBonus = player.GetDamageBonuses();
+        Dictionary<string, int> defBonus = player.GetDefenseBonuses();
+
+        //Fight loop
+        Boolean playerTurn = true;
+        Boolean continueFight = true;
+        int eHealth = _health;
+
+        do
+        {
+            if (playerTurn)
+            {
+                int pDMG = dmgBonus["Physical"] - _defenseBonuses["Physical"];
+                pDMG += dmgBonus["Life"] - _defenseBonuses["Life"];
+                pDMG += dmgBonus["Decay"] - _defenseBonuses["Decay"];
+                pDMG += dmgBonus["Fire"] - _defenseBonuses["Fire"];
+                pDMG += dmgBonus["Ice"] - _defenseBonuses["Ice"];
+                eHealth -= pDMG;
+                Helpers.Notify($"{player.Name()} did {pDMG} to the {_name}", screen);
+                if (eHealth <= 0)
+                {
+                    continueFight = false;
+                }
+            }
+            else //Encounter turn
+            {
+                int eDMG = _damageBonuses["Physical"] - defBonus["Physical"];
+                eDMG += _damageBonuses["Life"] - defBonus["Life"];
+                eDMG += _damageBonuses["Decay"] - defBonus["Decay"];
+                eDMG += _damageBonuses["Fire"] - defBonus["Fire"];
+                eDMG += _damageBonuses["Ice"] - defBonus["Ice"];
+                player.InflictDamage(eDMG);
+                Helpers.Notify($"The {_name} did {eDMG} to {player.Name()}", screen);
+                if (player.IsDead())
+                {
+                    continueFight = false;
+                }
+            }
+            playerTurn = !playerTurn;
+        } while (continueFight);
 
         //Temp debug. This needs to be on condition of success.
-        player.GiveItems(_rewards);
-        player.InflictDamage(1);  //Testing
-
-
-
-
-        return true;
+        if (!player.IsDead()) //Player is victorious
+        {
+            player.GiveItems(_rewards);
+            return true;
+        }
+        else //Player died
+        {
+            return false;
+        }
     }
     public override Boolean Reject(Player player, TextImage screen)
     {

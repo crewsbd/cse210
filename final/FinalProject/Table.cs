@@ -188,11 +188,11 @@ public class Table
                         }
                         if (_players[_currentPlayer].IsDead())
                         {
-                            Notify($"{_players[_currentPlayer].Name()} has died!", _tableImage);
+                            Helpers.Notify($"{_players[_currentPlayer].Name()} has died!", _tableImage);
                             _players.RemoveAt(_currentPlayer);
                             if (_players.Count() < 2)
                             {
-                                Notify($"{_players[0].Name()} is the winner!", _tableImage);
+                                Helpers.Notify($"{_players[0].Name()} is the winner!", _tableImage);
                                 _gameState = GameState.EndGame;
                             }
 
@@ -383,14 +383,5 @@ public class Table
         }
         return returnString;
     }
-    private void Notify(string msg, TextImage screen)
-    {
-        string backup = screen.GetString();
-        screen.DrawCard(20, 8, 40, 4);
-        screen.Draw($"{msg}\nPress any key.", 21, 9);
-        Console.SetCursorPosition(0, 0);
-        Console.Write(screen.GetString());
-        screen.Draw(backup, 0, 0);
-        Console.ReadKey();
-    }
+
 }

@@ -3,7 +3,8 @@ public static class Helpers
     static public int ReadInt()
     {
         int val;
-        while(!int.TryParse(Console.ReadLine(),out val)){
+        while (!int.TryParse(Console.ReadLine(), out val))
+        {
             Console.Write("Invalid input. Try again:");
         }
         return val;
@@ -12,15 +13,15 @@ public static class Helpers
     {
         string wrappedText = "";
         string[] splitString = sourceText.Split(" ");
-        for(int word = 0; word < splitString.Count(); word++)
+        for (int word = 0; word < splitString.Count(); word++)
         {
-            if((wrappedText+splitString[word]).Length > targetLength)
+            if ((wrappedText + splitString[word]).Length > targetLength)
             {
                 wrappedText += $"\n{splitString[word]} ";
             }
             else
             {
-            wrappedText += $"{splitString[word]} ";
+                wrappedText += $"{splitString[word]} ";
             }
         }
         return wrappedText;
@@ -30,5 +31,15 @@ public static class Helpers
         Encounter popped = deck[0];
         deck.RemoveAt(0);
         return popped;
+    }
+    static public void Notify(string msg, TextImage screen)
+    {
+        string backup = screen.GetString();
+        screen.DrawCard(20, 8, 40, 4);
+        screen.Draw($"{msg}\nPress any key.", 21, 9);
+        Console.SetCursorPosition(0, 0);
+        Console.Write(screen.GetString());
+        screen.Draw(backup, 0, 0);
+        Console.ReadKey();
     }
 }

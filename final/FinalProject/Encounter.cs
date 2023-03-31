@@ -7,14 +7,15 @@ public abstract class Encounter
     private string _cardImage;
     private TextImage _card;
     protected Table _table;
+
     public Encounter(JsonElement cardData, Item[] itemsList, Table table)
     {
         _name = cardData.GetProperty("Name").GetString();
         _description = cardData.GetProperty("Description").GetString();
+        
         _cardImage = File.ReadAllText("Resources/" + cardData.GetProperty("Image").GetString() + ".txt");
         _card = new TextImage(35, 13);
         _table = table;
-
 
     //This loop is getting all rewards.
         JsonElement rewards = cardData.GetProperty("Rewards"); //String list of all rewards for this card.
@@ -32,15 +33,9 @@ public abstract class Encounter
         }
         _rewards = tempItems.ToArray(); //Put the final list
 
-
         _card.DrawCard(0, 0, 35, 13);
         _card.Draw($"{_name}\n{Helpers.WrapText(_description, 30)}\n\n{_cardImage}\n\n\n\n\n\nReward...", 1, 1);
         _card.DrawCard(1, 4, 33, 6);
-
-
-        /* _card.Draw(_name, 2,1);
-        _card.Draw(_description,2,3);
-        _card.Draw(_cardImage, 5,2); */
     }
     public TextImage GetImage()
     {
