@@ -23,7 +23,8 @@ public class Table
         FlippedEncounter,
         EncounterAccepted,
         EncounterRejected,
-        EndTurn
+        EndTurn,
+        EndGame
 
     }
     private GameState _gameState;
@@ -70,14 +71,14 @@ public class Table
     {
         Console.CursorVisible = false;
         Console.Clear();
-        Boolean gameOver = false;
         TrimDecks(); //Make decks appropriate for play count
         InsertBoss(); //Put a boss in hard deck
         do
         {
             DrawTable();
             Logic();
-        } while (!gameOver);
+        } while (_gameState != GameState.EndGame);
+        return;
     }
     private void Logic()
     {
@@ -166,23 +167,7 @@ public class Table
                             if (_encounters[_cursorx, _cursory].Run(_players[_currentPlayer], _tableImage)) //success
                             {
                                 //Put a new card out!!!!!!!!
-                                if (_easyDeck.Count > 0)
-                                {
-                                    _encounters[_cursorx, _cursory] = Helpers.ListPop(_easyDeck);
-                                }
-                                else if (_mediumDeck.Count > 0)
-                                {
-                                    _encounters[_cursorx, _cursory] = Helpers.ListPop(_mediumDeck);
-                                }
-                                else if (_hardDeck.Count > 0)
-                                {
-                                    _encounters[_cursorx, _cursory] = Helpers.ListPop(_hardDeck);
-                                }
-                                else
-                                {
-                                    //What do I do if no cards left?
-                                }
-
+                                _encounters[_cursorx, _cursory] = GetNextCard();
                             }
                             else //The encounter was a failure.
                             {
@@ -201,8 +186,22 @@ public class Table
 
                             }
                         }
-                        _currentPlayer = (_currentPlayer + 1) % _players.Count(); //next player
-                        _gameState = GameState.StartTurn;
+                        if (_players[_currentPlayer].IsDead())
+                        {
+                            Notify($"{_players[_currentPlayer].Name()} has died!", _tableImage);
+                            _players.RemoveAt(_currentPlayer);
+                            if (_players.Count() < 2)
+                            {
+                                Notify($"{_players[0].Name()} is the winner!", _tableImage);
+                                _gameState = GameState.EndGame;
+                            }
+
+                        }
+                        if (_gameState != GameState.EndGame)
+                        {
+                            _currentPlayer = (_currentPlayer + 1) % _players.Count(); //next player
+                            _gameState = GameState.StartTurn;
+                        }
                     }
                     break;
                 }
@@ -383,5 +382,15 @@ public class Table
             returnString += $"\n{(line == _promptIndex ? "->" : "  ")} {_promptList[line]}";
         }
         return returnString;
+    }
+    private void Notify(string msg, TextImage screen)
+    {
+        string backup = screen.GetString();
+        screen.DrawCard(20, 8, 40, 4);
+        screen.Draw($"{msg}\nPress any key.", 21, 9);
+        Console.SetCursorPosition(0, 0);
+        Console.Write(screen.GetString());
+        screen.Draw(backup, 0, 0);
+        Console.ReadKey();
     }
 }
