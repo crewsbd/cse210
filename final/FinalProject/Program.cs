@@ -2,6 +2,12 @@ using System;
 
 /*todo
     Correct negative damage
+    Traps
+    Boss
+    Graphical tweaks
+    put names in more places.
+    Make deck bigger
+    Make more cards
 */
 
 class Program
