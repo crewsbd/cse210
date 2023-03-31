@@ -1,5 +1,9 @@
 using System;
 
+/*todo
+    Correct negative damage
+*/
+
 class Program
 {
     static void Main(string[] args)

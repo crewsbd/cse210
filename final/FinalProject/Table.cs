@@ -224,21 +224,28 @@ public class Table
         for (int c = 0; c < _players[_currentPlayer].Items.Count(); c++)
         {
             _tableImage.DrawCard(c * (_cardPortaitX + _gap) + 1, 16, _cardPortaitX, _cardPortraitY);
-            _tableImage.Draw(Helpers.WrapText(_players[_currentPlayer].Items[c].Name, _cardPortaitX - 2), c * (_cardPortaitX + _gap) + 2, 17);
+            _tableImage.Draw(Helpers.WrapText(_players[_currentPlayer].Items[c].Name, _cardPortaitX - 4), c * (_cardPortaitX + _gap) + 2, 16);
         }
 
-        //Draw current player
-        _tableImage.Draw($"┨ Current Player: {_players[_currentPlayer].Name()} HP: {_players[_currentPlayer].Health}/{_players[_currentPlayer].MaxHealth}  ┠", 2, 0);
+        //Draw Title
+        _tableImage.Draw($"┨ DUNGEON ┠", 35, 0);
         //Draw currently selected card
         _tableImage.DrawHighlight(_cursorx * (_cardLandscapeX + _gap) + 1, _cursory * (_cardLandscapeY + _gap) + 1, _cardLandscapeX, _cardLandscapeY);
-        _tableImage.Draw(_players[_currentPlayer].PlayerStatsDisplay(), 40, 3);
+
+        //Draw current player stats
+        _tableImage.Draw(_players[_currentPlayer].PlayerStatsDisplay(), 40, 1);
+
+        //Draw all players hp
+        _tableImage.DrawCard(40, 11, 20, _players.Count() + 2);
+        for (int p = 0; p < _players.Count(); p++)
+        {
+            _tableImage.Draw($"{_players[p].Name()}:", 41, p + 12);
+            _tableImage.Draw($"{_players[p].Health}/{_players[p].MaxHealth}", 53, p + 12);
+        }
 
         //Draw a zoomed and flipped version of currently selected card(press enter to do so)
         if (_gameState == GameState.FlippedEncounter)
         {
-            /*_tableImage.DrawCard(3, 2, 35, 13);
-            _tableImage.Draw($"   Name\nDescription\n\nImage\n\n\n\n\n\nReward...", 5, 3);
-            _tableImage.DrawCard(4, 6, 33, 6); */
             _tableImage.Draw(_encounters[_cursorx, _cursory].GetImage(), 3, 2);
             _tableImage.DrawCard(40, 2, 39, _promptList.Count() + 2);
             _tableImage.Draw(RenderPrompt(), 41, 3);

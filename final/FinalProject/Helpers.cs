@@ -13,11 +13,15 @@ public static class Helpers
     {
         string wrappedText = "";
         string[] splitString = sourceText.Split(" ");
+        int lengthTracker = 0;
+
         for (int word = 0; word < splitString.Count(); word++)
         {
-            if ((wrappedText + splitString[word]).Length > targetLength)
+            lengthTracker += splitString[word].Length+1;
+            if (lengthTracker > targetLength)
             {
                 wrappedText += $"\n{splitString[word]} ";
+                lengthTracker = 0;
             }
             else
             {

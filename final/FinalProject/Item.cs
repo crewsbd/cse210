@@ -41,6 +41,10 @@ public class Item
     {
         get { return _singleUse; }
     }
+    public int HealthBonus
+    {
+        get { return _healthBonus; }
+    }
     public int MaxCarried
     {
         get { return _maxCarried; }

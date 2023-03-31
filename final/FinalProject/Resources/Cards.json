@@ -73,7 +73,7 @@
             {
                 "Type": "SimpleEncounter",
                 "Name": "Skeleton",
-                "Description": "This guy has a shielf. Intimidating.",
+                "Description": "This guy has a shield. Intimidating.",
                 "Image": "Monster",
                 "InDeck": 6,
                 "Health": 5,

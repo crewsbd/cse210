@@ -2,10 +2,10 @@ using System.Text.Json;
 public abstract class Encounter
 {
     protected string _name;
-    private string _description;
+    protected string _description;
     protected Item[] _rewards;
-    private string _cardImage;
-    private TextImage _card;
+    protected string _cardImage;
+    protected TextImage _card;
     protected Table _table;
 
     public Encounter(JsonElement cardData, Item[] itemsList, Table table)
@@ -33,9 +33,8 @@ public abstract class Encounter
         }
         _rewards = tempItems.ToArray(); //Put the final list
 
-        _card.DrawCard(0, 0, 35, 13);
-        _card.Draw($"{_name}\n{Helpers.WrapText(_description, 30)}\n\n{_cardImage}\n\n\n\n\n\nReward...", 1, 1);
-        _card.DrawCard(1, 4, 33, 6);
+
+        //_card.DrawCard(1, 4, 33, 6);
     }
     public TextImage GetImage()
     {

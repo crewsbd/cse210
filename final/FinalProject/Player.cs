@@ -54,6 +54,14 @@ public class Player
     {
         _health.Add(amount);
     }
+    public void BoostHealth(int amount)
+    {
+        _health.Boost(amount);
+    }
+    public void RemoveHealthBoost()
+    {
+        _health.ClearBoost();
+    }
     public void RemoveItem(int index)
     {
         _items.RemoveAt(index);
@@ -110,20 +118,21 @@ public class Player
         Dictionary<string, int> defenseB = GetDefenseBonuses();
 
         TextImage img = new TextImage(20, 10);
+        img.DrawCard(0,0,20,10);
         img.Draw(_name, 1, 1);
-        img.Draw($"HP: {_health.Value.ToString()}/{_health.Value.ToString()}", 1, 2);
-        img.Draw("      DMG DEF", 1, 2);
-        img.Draw($"Phy:  {damageB["Physical"]}", 1, 3);
-        img.Draw($"Lif:  {damageB["Life"]}", 1, 4);
-        img.Draw($"Dec:  {damageB["Decay"]}", 1, 5);
-        img.Draw($"Fir:  {damageB["Fire"]}", 1, 6);
-        img.Draw($"Ice:  {damageB["Ice"]}", 1, 7);
+        img.Draw($"HP: {_health.Value.ToString()}/{_health.Max.ToString()}", 1, 2);
+        img.Draw("      DMG DEF", 1, 3);
+        img.Draw($"Phy:  {damageB["Physical"]}", 1, 4);
+        img.Draw($"Lif:  {damageB["Life"]}", 1, 5);
+        img.Draw($"Dec:  {damageB["Decay"]}", 1, 6);
+        img.Draw($"Fir:  {damageB["Fire"]}", 1, 7);
+        img.Draw($"Ice:  {damageB["Ice"]}", 1, 8);
 
-        img.Draw($"{defenseB["Physical"]}", 11, 3);
-        img.Draw($"{defenseB["Life"]}", 11, 4);
-        img.Draw($"{defenseB["Decay"]}", 11, 5);
-        img.Draw($"{defenseB["Fire"]}", 11, 6);
-        img.Draw($"{defenseB["Ice"]}", 11, 7);
+        img.Draw($"{defenseB["Physical"]}", 11, 4);
+        img.Draw($"{defenseB["Life"]}", 11, 5);
+        img.Draw($"{defenseB["Decay"]}", 11, 6);
+        img.Draw($"{defenseB["Fire"]}", 11, 7);
+        img.Draw($"{defenseB["Ice"]}", 11, 8);
         return img.GetString();
     }
     public Dictionary<string, int> GetDamageBonuses()

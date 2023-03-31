@@ -7,6 +7,10 @@ public class CompoundEncounter : Encounter
     {
         _encounterCount = cardData.GetProperty("SubCards").GetInt32();
         _encounters = new List<Encounter>();
+
+        _card.DrawCard(0, 0, 35, 13);
+        _card.Draw($"{_name}\n{Helpers.WrapText(_description, 33)}\n\n{_cardImage}\n\n\n\n\n\nReward...", 1, 1);
+        _card.Draw(Helpers.WrapText($"You'll need to fight {_encounterCount} random monsters from the deck.",33), 1,10);
     }
     public override Boolean Run(Player player, TextImage screen)
     {

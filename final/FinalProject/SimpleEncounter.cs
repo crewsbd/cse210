@@ -22,6 +22,11 @@ class SimpleEncounter : Encounter
         _defenseBonuses["Decay"] = defB.GetProperty("Decay").GetInt32();
         _defenseBonuses["Fire"] = defB.GetProperty("Fire").GetInt32();
         _defenseBonuses["Ice"] = defB.GetProperty("Ice").GetInt32();
+
+        _card.DrawCard(0, 0, 35, 13);
+        _card.Draw($"{_name}\n{Helpers.WrapText(_description, 33)}\n\n{_cardImage}\n\n\n\n\n\nReward...", 1, 1);
+        _card.Draw($"DMG P:{_damageBonuses["Physical"]} L:{_damageBonuses["Life"]} D:{_damageBonuses["Decay"]} F:{_damageBonuses["Fire"]} I:{_damageBonuses["Ice"]}", 1,10);
+        _card.Draw($"DEF P:{_defenseBonuses["Physical"]} L:{_defenseBonuses["Life"]} D:{_defenseBonuses["Decay"]} F:{_defenseBonuses["Fire"]} I:{_defenseBonuses["Ice"]}", 1,11);
     }
     public override Boolean Run(Player player, TextImage screen)
     {
@@ -122,6 +127,10 @@ class SimpleEncounter : Encounter
             {
                 if (selectedCards[c]) //if this single use item was selected
                 {
+                    if( singleUseItems[c].HealthBonus > 0 )
+                    {
+                        player.BoostHealth(singleUseItems[c].HealthBonus);  //Use potions
+                    }
                     player.RemoveItem(singleUseItemOriginalIndex[c] - c); //Remove the used card from the player
                 }
             }
@@ -177,8 +186,7 @@ class SimpleEncounter : Encounter
             }
             playerTurn = !playerTurn;
         } while (continueFight);
-
-        //Temp debug. This needs to be on condition of success.
+        player.RemoveHealthBoost(); //Remove any benefits of potions
         if (!player.IsDead()) //Player is victorious
         {
             player.GiveItems(_rewards);
