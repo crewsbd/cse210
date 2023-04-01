@@ -5,15 +5,21 @@ using System;
     X Traps
     X Boss
     X Boss endgame!! At least this.
-    Graphical tweaks
+    X Graphical tweaks
     Word wrap improvement.  Get a line counter so messages box heights fit.
     put names in more places.
+    Show health during fight
     X Make deck bigger
     X Make more cards
     X Add a help spash screen
     Make getters/setters consistent
-    Put settings in a json file
     X Card images
+    X Tune/Balance game difficulty
+Wish list
+    Item slots? Hand, Head, Feet etc...
+    FINE tune game difficulty
+    Hand limit?
+    Put settings in a json file
 */
 
 class Program
@@ -33,20 +39,19 @@ class Program
         Console.Clear();
 
         buffer.DrawCard(0, 0, screenWidth, screenHeight);
-        buffer.Draw("Make sure this box fits your screen\n    Press any key to continue.", 22, screenHeight / 2);
-    
-        Console.SetCursorPosition(0,0);
+        buffer.Draw("Make sure this box fits your screen\n    Press any key to continue.", 22, screenHeight / 2 - 2);
+
+        Console.SetCursorPosition(0, 0);
         Console.WriteLine(buffer.GetString());
         Console.ReadKey();
 
         buffer.Clear();
-        buffer.DrawCard(0,0,screenWidth, screenHeight);
-        buffer.Draw(help,2,1);
-        buffer.Draw("Press any key to continue.", 25, screenHeight-2);
-        Console.SetCursorPosition(0,0);
+        buffer.DrawCard(0, 0, screenWidth, screenHeight);
+        buffer.Draw(help, 2, 1);
+        buffer.Draw("Press any key to continue.", 25, screenHeight - 2);
+        Console.SetCursorPosition(0, 0);
         Console.WriteLine(buffer.GetString());
         Console.ReadKey();
-
 
         image.DrawCard(0, 0, 5, 4);
         buffer.Clear();

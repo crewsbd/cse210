@@ -168,7 +168,7 @@ public class Table
                             if (_encounters[_cursorx, _cursory].Run(_players[_currentPlayer], _tableImage)) //success
                             {
                                 //Put a new card out!!!!!!!!
-                                if(_encounters[_cursorx,_cursory].GetType().Name == "BossEncounter")
+                                if (_encounters[_cursorx, _cursory].GetType().Name == "BossEncounter")
                                 {
                                     _gameState = GameState.EndGame;
                                 }
@@ -239,22 +239,30 @@ public class Table
         _tableImage.DrawHighlight(_cursorx * (_cardLandscapeX + _gap) + 1, _cursory * (_cardLandscapeY + _gap) + 1, _cardLandscapeX, _cardLandscapeY);
 
         //Draw current player stats
-        _tableImage.Draw(_players[_currentPlayer].PlayerStatsDisplay(), 40, 1);
+        _tableImage.Draw(_players[_currentPlayer].PlayerStatsDisplay(), 59, 1);
 
         //Draw all players hp
-        _tableImage.DrawCard(40, 11, 20, _players.Count() + 2);
+        _tableImage.DrawCard(59, 11, 20, _players.Count() + 2);
         for (int p = 0; p < _players.Count(); p++)
         {
-            _tableImage.Draw($"{_players[p].Name()}:", 41, p + 12);
-            _tableImage.Draw($"{_players[p].Health}/{_players[p].MaxHealth}", 53, p + 12);
+            _tableImage.Draw($"{_players[p].Name()}:", 60, p + 12);
+            _tableImage.Draw($"{_players[p].Health}/{_players[p].MaxHealth}", 73, p + 12);
         }
 
         //Draw a zoomed and flipped version of currently selected card(press enter to do so)
         if (_gameState == GameState.FlippedEncounter)
         {
             _tableImage.Draw(_encounters[_cursorx, _cursory].GetImage(), 3, 2);
-            _tableImage.DrawCard(40, 12, 39, _promptList.Count() + 2);
-            _tableImage.Draw(RenderPrompt(), 41, 13);
+            _tableImage.DrawCard(40, 11, 39, _promptList.Count() + 2);
+            _tableImage.Draw(RenderPrompt(), 41, 12);
+
+            _tableImage.DrawCard(40, 1, 19, 10);
+            _tableImage.Draw("Rewards", 41,2);
+            Item[] rewardItems = _encounters[_cursorx, _cursory].GetReward();
+            for (int r = 0; r < rewardItems.Count(); r++)
+            {
+                _tableImage.Draw($"-{rewardItems[r].Name}", 41, r + 3);
+            }
         }
         //Console.Clear();
         Console.SetCursorPosition(0, 0);
@@ -276,7 +284,6 @@ public class Table
         LoadDeck(ref _hardDeck, deckData.GetProperty("Encounters").GetProperty("Hard"));
         LoadDeck(ref _bossDeck, deckData.GetProperty("Encounters").GetProperty("Boss"));
     }
-
     private void ShuffleDecks()
     {
         ShuffleDeck(ref _easyDeck);
@@ -292,8 +299,8 @@ public class Table
     }
     private void InsertBoss()
     {
-        _easyDeck.Insert(0, _bossDeck[0]);
-        //_hardDeck.Insert(new Random(DateTime.Now.Millisecond).Next(_players.Count() * 3), _bossDeck[0]);
+        //_easyDeck.Insert(0, _bossDeck[0]);
+        _hardDeck.Insert(new Random(DateTime.Now.Millisecond).Next(_players.Count() * 3), _bossDeck[0]);
     }
     private void LoadDeck(ref List<Encounter> deck, JsonElement json)
     {
@@ -387,7 +394,6 @@ public class Table
         }
         return nextCard;
     }
-
     private string RenderPrompt()
     {
         string returnString = _promptList[0];
@@ -397,5 +403,4 @@ public class Table
         }
         return returnString;
     }
-
 }

@@ -46,4 +46,9 @@ public static class Helpers
         screen.Draw(backup, 0, 0);
         Console.ReadKey();
     }
+    static public int LineCount(string inputString)
+    {
+        return inputString.Split("\n").Count();
+        
+    } 
 }
