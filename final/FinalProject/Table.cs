@@ -353,7 +353,7 @@ public class Table
     }
     private void ShuffleDeck(ref List<Encounter> deck)
     {
-        Random rnd = new Random(DateTime.Today.Millisecond);
+        Random rnd = new Random(DateTime.Now.Millisecond);
         deck = deck.OrderBy((card) => rnd.Next()
         ).ToList();
     }

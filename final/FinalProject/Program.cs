@@ -74,5 +74,6 @@ class Program
             table.AddPlayer(name);
         }
         table.StartGame();
+        Console.Clear();
     }
 }

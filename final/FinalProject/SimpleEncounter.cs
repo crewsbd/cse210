@@ -75,8 +75,11 @@ class SimpleEncounter : Encounter
                     }
                     else //draw Confirm selection
                     {
-                        screen.DrawCard(c * 9 + 1, 18, 9, 4);
-                        screen.Draw("Confirm\nSelection", c * 9 + 2, 18);
+                        screen.DrawCard(focusedCard * 9, 18, 11, 4);
+                        screen.Draw("Confirm\nSelection", focusedCard * 9 + 1, 19);
+
+                        /*screen.DrawCard(c * 9 + 1, 17, 10, 4);
+                        screen.Draw("Confirm\nSelection", c * 9 + 2, 19); */
                     }
                 }
 
@@ -90,10 +93,10 @@ class SimpleEncounter : Encounter
                         screen.Draw("-X-", focusedCard * 9 + 1, 16);
                     }
                 }
-                else //Or confirm selection
+                else //Or focused confirm selection...larger
                 {
                     screen.DrawCard(focusedCard * 9, 17, 11, 6);
-                    screen.Draw("Confirm\nSelection", focusedCard * 9 + 1, 17);
+                    screen.Draw("Confirm\nSelection", focusedCard * 9 + 1, 19);
                 }
 
                 Update(screen);
