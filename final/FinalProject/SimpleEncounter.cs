@@ -24,9 +24,9 @@ class SimpleEncounter : Encounter
         _defenseBonuses["Ice"] = defB.GetProperty("Ice").GetInt32();
 
         _card.DrawCard(0, 0, 35, 13);
-        _card.Draw($"{_name}\n{Helpers.WrapText(_description, 33)}\n\n{_cardImage}\n\n\n\n\n\nReward...", 1, 1);
-        _card.Draw($"DMG P:{_damageBonuses["Physical"]} L:{_damageBonuses["Life"]} D:{_damageBonuses["Decay"]} F:{_damageBonuses["Fire"]} I:{_damageBonuses["Ice"]}", 1,10);
-        _card.Draw($"DEF P:{_defenseBonuses["Physical"]} L:{_defenseBonuses["Life"]} D:{_defenseBonuses["Decay"]} F:{_defenseBonuses["Fire"]} I:{_defenseBonuses["Ice"]}", 1,11);
+        _card.Draw($"{_name}: {_health} health\n{Helpers.WrapText(_description, 33)}\n\n{_cardImage}\n\n\n\n\n\nReward...", 1, 1);
+        _card.Draw($"DMG P:{_damageBonuses["Physical"]} L:{_damageBonuses["Life"]} D:{_damageBonuses["Decay"]} F:{_damageBonuses["Fire"]} I:{_damageBonuses["Ice"]}", 1, 10);
+        _card.Draw($"DEF P:{_defenseBonuses["Physical"]} L:{_defenseBonuses["Life"]} D:{_defenseBonuses["Decay"]} F:{_defenseBonuses["Fire"]} I:{_defenseBonuses["Ice"]}", 1, 11);
     }
     public override Boolean Run(Player player, TextImage screen)
     {
@@ -127,7 +127,7 @@ class SimpleEncounter : Encounter
             {
                 if (selectedCards[c]) //if this single use item was selected
                 {
-                    if( singleUseItems[c].HealthBonus > 0 )
+                    if (singleUseItems[c].HealthBonus > 0)
                     {
                         player.BoostHealth(singleUseItems[c].HealthBonus);  //Use potions
                     }
@@ -136,14 +136,6 @@ class SimpleEncounter : Encounter
             }
         }
         //ITEM SELECTION END----------------------------------------------------
-
-        /*Run card 
-        1. Get all buffs from cards 
-        2. Loop between player and enemy.
-        2. a If not, player damaged. 
-        2. b Use potions
-        //3. See if player survives
-        */
 
         //Get buffs
         Dictionary<string, int> dmgBonus = player.GetDamageBonuses();
@@ -158,11 +150,12 @@ class SimpleEncounter : Encounter
         {
             if (playerTurn)
             {
-                int pDMG = dmgBonus["Physical"] - _defenseBonuses["Physical"];
-                pDMG += dmgBonus["Life"] - _defenseBonuses["Life"];
-                pDMG += dmgBonus["Decay"] - _defenseBonuses["Decay"];
-                pDMG += dmgBonus["Fire"] - _defenseBonuses["Fire"];
-                pDMG += dmgBonus["Ice"] - _defenseBonuses["Ice"];
+                int pDMG = Math.Max(0, dmgBonus["Physical"] - _defenseBonuses["Physical"]);
+                pDMG += Math.Max(0, dmgBonus["Life"] - _defenseBonuses["Life"]);
+                pDMG += Math.Max(0, dmgBonus["Decay"] - _defenseBonuses["Decay"]);
+                pDMG += Math.Max(0, dmgBonus["Fire"] - _defenseBonuses["Fire"]);
+                pDMG += Math.Max(0, dmgBonus["Ice"] - _defenseBonuses["Ice"]);
+                pDMG = Math.Max(1, pDMG); //Always at least 1 damage;
                 eHealth -= pDMG;
                 Helpers.Notify($"{player.Name()} did {pDMG} to the {_name}", screen);
                 if (eHealth <= 0)
@@ -172,11 +165,12 @@ class SimpleEncounter : Encounter
             }
             else //Encounter turn
             {
-                int eDMG = _damageBonuses["Physical"] - defBonus["Physical"];
-                eDMG += _damageBonuses["Life"] - defBonus["Life"];
-                eDMG += _damageBonuses["Decay"] - defBonus["Decay"];
-                eDMG += _damageBonuses["Fire"] - defBonus["Fire"];
-                eDMG += _damageBonuses["Ice"] - defBonus["Ice"];
+                int eDMG = Math.Max(0, _damageBonuses["Physical"] - defBonus["Physical"]);
+                eDMG += Math.Max(0, _damageBonuses["Life"] - defBonus["Life"]);
+                eDMG += Math.Max(0, _damageBonuses["Decay"] - defBonus["Decay"]);
+                eDMG += Math.Max(0, _damageBonuses["Fire"] - defBonus["Fire"]);
+                eDMG += Math.Max(0, _damageBonuses["Ice"] - defBonus["Ice"]);
+                eDMG = Math.Max(1, eDMG); //At least 1 damage
                 player.InflictDamage(eDMG);
                 Helpers.Notify($"The {_name} did {eDMG} to {player.Name()}", screen);
                 if (player.IsDead())
@@ -184,7 +178,7 @@ class SimpleEncounter : Encounter
                     continueFight = false;
                 }
             }
-            playerTurn = !playerTurn;
+            playerTurn = !playerTurn; //Toggle player and encounter
         } while (continueFight);
         player.RemoveHealthBoost(); //Remove any benefits of potions
         if (!player.IsDead()) //Player is victorious
@@ -205,9 +199,5 @@ class SimpleEncounter : Encounter
     {
         return _rewards;
     }
-    private void Update(TextImage buffer)
-    {
-        Console.SetCursorPosition(0, 0);
-        Console.Write(buffer.GetString());
-    }
+
 }

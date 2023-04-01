@@ -1,0 +1,18 @@
+                                HOW TO PLAY
+
+CONTROLS
+    ARROW KEY: Move cursor
+    ENTER KEY: Select an option
+PLAY ORDER
+    1. Select an encounter card.
+    2. Choose to play the encounter.
+        A. If you fight, choose from aquired single-use items.
+        B. The player might take damage.
+        C. If the player wins, they get a reward item.
+    3. Choose to reject the encounter
+        A. Some encounters have punishments for rejecting.
+        B. You get no reward.
+    4. The next player takes their turn.
+VICTORY CONDITIONS
+    1. If all but one player are eliminated, that player wins.
+    2. If on player defeats the Boss, that player wins.

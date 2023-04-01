@@ -78,6 +78,7 @@ public class Table
             DrawTable();
             Logic();
         } while (_gameState != GameState.EndGame);
+        Helpers.Notify($"{_players[_currentPlayer].Name()} is the winner!", _tableImage);
         return;
     }
     private void Logic()
@@ -167,6 +168,10 @@ public class Table
                             if (_encounters[_cursorx, _cursory].Run(_players[_currentPlayer], _tableImage)) //success
                             {
                                 //Put a new card out!!!!!!!!
+                                if(_encounters[_cursorx,_cursory].GetType().Name == "BossEncounter")
+                                {
+                                    _gameState = GameState.EndGame;
+                                }
                                 _encounters[_cursorx, _cursory] = GetNextCard();
                             }
                             else //The encounter was a failure.
@@ -192,7 +197,8 @@ public class Table
                             _players.RemoveAt(_currentPlayer);
                             if (_players.Count() < 2)
                             {
-                                Helpers.Notify($"{_players[0].Name()} is the winner!", _tableImage);
+                                //Helpers.Notify($"{_players[0].Name()} is the winner!", _tableImage);
+                                _currentPlayer = 0; //Only remaining player.
                                 _gameState = GameState.EndGame;
                             }
 
@@ -247,8 +253,8 @@ public class Table
         if (_gameState == GameState.FlippedEncounter)
         {
             _tableImage.Draw(_encounters[_cursorx, _cursory].GetImage(), 3, 2);
-            _tableImage.DrawCard(40, 2, 39, _promptList.Count() + 2);
-            _tableImage.Draw(RenderPrompt(), 41, 3);
+            _tableImage.DrawCard(40, 12, 39, _promptList.Count() + 2);
+            _tableImage.Draw(RenderPrompt(), 41, 13);
         }
         //Console.Clear();
         Console.SetCursorPosition(0, 0);
@@ -280,13 +286,14 @@ public class Table
     }
     private void TrimDecks()
     {
-        _easyDeck = _easyDeck.GetRange(0, _players.Count * 3);
-        _mediumDeck = _mediumDeck.GetRange(0, _players.Count * 3);
-        _hardDeck = _hardDeck.GetRange(0, _players.Count * 3);
+        _easyDeck = _easyDeck.GetRange(0, _players.Count * 3 + 9);
+        _mediumDeck = _mediumDeck.GetRange(0, _players.Count * 3 + 9);
+        _hardDeck = _hardDeck.GetRange(0, _players.Count * 3 + 9);
     }
     private void InsertBoss()
     {
-        _hardDeck.Insert(new Random(DateTime.Now.Millisecond).Next(_players.Count() * 3), _bossDeck[0]);
+        _easyDeck.Insert(0, _bossDeck[0]);
+        //_hardDeck.Insert(new Random(DateTime.Now.Millisecond).Next(_players.Count() * 3), _bossDeck[0]);
     }
     private void LoadDeck(ref List<Encounter> deck, JsonElement json)
     {

@@ -22,14 +22,14 @@
                     "Fire": 0,
                     "Ice": 0
                 },
-                "Rewards": ["Small Health Potion"]
+                "Rewards": ["Dagger"]
             },
             {
                 "Type": "SimpleEncounter",
                 "Name": "Rat Swarm",
                 "Description": "This aggressive swarm of rats looks recently diseased.",
                 "Image": "Monster",
-                "InDeck": 6,
+                "InDeck": 8,
                 "Health": 2,
                 "DamageBonuses": {
                     "Physical": 0,
@@ -46,6 +46,29 @@
                     "Ice": 0
                 },
                 "Rewards": ["Small Health Potion"]
+            },
+            {
+                "Type": "TrapEncounter",
+                "Name": "Dart Trap",
+                "Description": "A bunch of darts shoot out.",
+                "Image": "Trap",
+                "InDeck": 6,
+                "Health": 2,
+                "DamageBonuses": {
+                    "Physical": 4,
+                    "Life": 0,
+                    "Decay": 0,
+                    "Fire": 0,
+                    "Ice": 0
+                },
+                "DefenseBonuses": {
+                    "Physical": 0,
+                    "Life": 0,
+                    "Decay": 0,
+                    "Fire": 0,
+                    "Ice": 0
+                },
+                "Rewards": ["Dagger"]
             },
             {
                 "Type": "SimpleEncounter",
@@ -66,9 +89,9 @@
                     "Life": 0,
                     "Decay": 0,
                     "Fire": 2,
-                    "Ice": -3
+                    "Ice": 0
                 },
-                "Rewards": ["Flame Sword"]
+                "Rewards": ["Flame Dagger"]
             },
             {
                 "Type": "SimpleEncounter",
@@ -86,9 +109,9 @@
                 },
                 "DefenseBonuses": {
                     "Physical": 2,
-                    "Life": -5,
+                    "Life": 0,
                     "Decay": 5,
-                    "Fire": -1,
+                    "Fire": 0,
                     "Ice": 0
                 },
                 "Rewards": ["Small Shield"]
@@ -100,7 +123,7 @@
                 "Name": "Zombie",
                 "Description": "A shambling pile of flesh and bones",
                 "Image": "Monster",
-                "InDeck": 6,
+                "InDeck": 7,
                 "Health": 10,
                 "DamageBonuses": {
                     "Physical": 0,
@@ -109,14 +132,39 @@
                     "Fire": 0,
                     "Ice": 0
                 },
+                
                 "DefenseBonuses": {
                     "Physical": 2,
-                    "Life": -5,
+                    "Life": 0,
                     "Decay": 10,
                     "Fire": 0,
                     "Ice": 0
                 },
                 "Rewards": ["Dagger of Decay"]
+            },
+            {
+                "Type": "SimpleEncounter",
+                "Name": "Brigand",
+                "Description": "Some guy wants your money.",
+                "Image": "Monster",
+                "InDeck": 7,
+                "Health": 10,
+                "DamageBonuses": {
+                    "Physical": 5,
+                    "Life": 0,
+                    "Decay": 0,
+                    "Fire": 0,
+                    "Ice": 0
+                },
+                
+                "DefenseBonuses": {
+                    "Physical": 2,
+                    "Life": 0,
+                    "Decay": 10,
+                    "Fire": 0,
+                    "Ice": 0
+                },
+                "Rewards": ["Large Health Potion"]
             },
             {
                 "Type": "CompoundEncounter",
@@ -125,7 +173,7 @@
                 "Image": "Monsters",
                 "InDeck": 3,
                 "SubCards": 2,
-                "Rewards": ["Small Health Potion"]
+                "Rewards": ["Large Health Potion"]
             }
         ],
         "Hard": [
@@ -150,15 +198,38 @@
                     "Fire": 0,
                     "Ice": 2
                 },
-                "Rewards": ["Small Health Potion"]
+                "Rewards": ["Large Health Potion"]
             },
             {
                 "Type": "SimpleEncounter",
-                "Name": "Ice Snake",
-                "Description": "It's a snake and it's cold.",
+                "Name": "Fire Elemental",
+                "Description": "A living flame.",
                 "Image": "Monster",
                 "InDeck": 6,
-                "Health": 25,
+                "Health": 22,
+                "DamageBonuses": {
+                    "Physical": 0,
+                    "Life": 0,
+                    "Decay": 0,
+                    "Fire": 5,
+                    "Ice": 0
+                },
+                "DefenseBonuses": {
+                    "Physical": 4,
+                    "Life": 1,
+                    "Decay": 1,
+                    "Fire": 5,
+                    "Ice": 0
+                },
+                "Rewards": ["Large Health Potion"]
+            },
+            {
+                "Type": "SimpleEncounter",
+                "Name": "Ice Serpent",
+                "Description": "It's a big snake and it's cold.",
+                "Image": "Monster",
+                "InDeck": 6,
+                "Health": 20,
                 "DamageBonuses": {
                     "Physical": 0,
                     "Life": 0,
@@ -170,10 +241,10 @@
                     "Physical": 0,
                     "Life": 0,
                     "Decay": 0,
-                    "Fire": -5,
+                    "Fire": 0,
                     "Ice": 5
                 },
-                "Rewards": ["Small Health Potion"]
+                "Rewards": ["Ice Dagger"]
             }
         ],
         "Boss": [
@@ -183,6 +254,7 @@
                 "Description": "A Dragon made of fire...or it is firey. It's hot.",
                 "Image": "Boss",
                 "InDeck": 1,
+                "Health": 40,
                 "DamageBonuses": {
                     "Physical": 10,
                     "Life": 0,
@@ -195,7 +267,7 @@
                     "Life": 5,
                     "Decay": 5,
                     "Fire": 10,
-                    "Ice": -10
+                    "Ice": 0
                 },
                 "Rewards": ["Small Health Potion"]
             }
@@ -204,7 +276,7 @@
     "Items": [
         {
             "Name": "Small Shield",
-            "Description": "Reduces physical damage by 2",
+            "Description": "Reduces physical damage by a small amount",
             "SingleUse": false,
             "Image": "Shield",
             "HealthBonus": 0,
@@ -221,6 +293,28 @@
                 "Life": 0,
                 "Decay": 0,
                 "Fire": 0,
+                "Ice": 0
+            }
+        },
+        {
+            "Name": "Ward of Fire",
+            "Description": "Reduces fire damage a small amount",
+            "SingleUse": false,
+            "Image": "Shield",
+            "HealthBonus": 0,
+            "MaxCarried": 1,
+            "DamageBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
+            },
+            "DefenseBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 2,
                 "Ice": 0
             }
         },
@@ -247,7 +341,7 @@
             }
         },
         {
-            "Name": "Flame Sword",
+            "Name": "Flame Dagger",
             "Description": "Deals an extra 2 fire damage",
             "SingleUse": false,
             "Image": "Weapon",
@@ -269,12 +363,78 @@
             }
         },
         {
+            "Name": "Ice Dagger",
+            "Description": "Deals an extra 2 ice damage",
+            "SingleUse": false,
+            "Image": "Weapon",
+            "HealthBonus": 0,
+            "MaxCarried": 1,
+            "DamageBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 8
+            },
+            "DefenseBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
+            }
+        },
+        {
+            "Name": "Dagger",
+            "Description": "Deals an extra 2 physical damage",
+            "SingleUse": false,
+            "Image": "Weapon",
+            "HealthBonus": 0,
+            "MaxCarried": 1,
+            "DamageBonuses": {
+                "Physical": 2,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
+            },
+            "DefenseBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
+            }
+        },
+        {
             "Name": "Small Health Potion",
             "Description": "Recover 5 health during an encounter",
             "SingleUse": true,
             "Image": "Potion",
             "HealthBonus": 5,
             "MaxCarried": 5,
+            "DamageBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
+            },
+            "DefenseBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
+            }
+        },
+        {
+            "Name": "Large Health Potion",
+            "Description": "Recover 10 health during an encounter",
+            "SingleUse": true,
+            "Image": "Potion",
+            "HealthBonus": 10,
+            "MaxCarried": 2,
             "DamageBonuses": {
                 "Physical": 0,
                 "Life": 0,

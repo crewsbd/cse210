@@ -52,7 +52,18 @@ class Reservoir
     }
     public void Boost(int value)
     {
-        _boost = value;
+        int shortfall = _max - _current;
+        if(value < shortfall)
+        {
+            _current += value; //Just add the value
+        }
+        else
+        {
+            _current = _max;
+            _boost += value - shortfall;
+        }
+
+        //_boost = value;
     }
     public void ClearBoost()
     {
