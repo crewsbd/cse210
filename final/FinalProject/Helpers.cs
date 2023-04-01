@@ -12,7 +12,7 @@ public static class Helpers
     static public int ReadIntRange(int min, int max)
     {
         int val = ReadInt();
-        while (val > max & val < min )
+        while (val > max | val < min )
         {
             Console.Write("Input our of range. Try again:");
             val = ReadInt();
