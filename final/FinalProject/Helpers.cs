@@ -9,6 +9,16 @@ public static class Helpers
         }
         return val;
     }
+    static public int ReadIntRange(int min, int max)
+    {
+        int val = ReadInt();
+        while (val > max & val < min )
+        {
+            Console.Write("Input our of range. Try again:");
+            val = ReadInt();
+        }
+        return val;
+    }
     static public string WrapText(string sourceText, int targetLength)
     {
         string wrappedText = "";

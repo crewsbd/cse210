@@ -123,7 +123,7 @@
                 "Name": "Zombie",
                 "Description": "A shambling pile of flesh and bones",
                 "Image": "Monster",
-                "InDeck": 6,
+                "InDeck": 13,
                 "Health": 8,
                 "DamageBonuses": {
                     "Physical": 3,
@@ -147,7 +147,7 @@
                 "Name": "Brigand",
                 "Description": "Some guy wants your money.",
                 "Image": "Monster",
-                "InDeck": 7,
+                "InDeck": 11,
                 "Health": 10,
                 "DamageBonuses": {
                     "Physical": 5,
@@ -167,11 +167,35 @@
                 "Rewards": ["Lg Potion"]
             },
             {
+                "Type": "SimpleEncounter",
+                "Name": "Vampire",
+                "Description": "Some guy wants your blood.",
+                "Image": "Monster",
+                "InDeck": 8,
+                "Health": 11,
+                "DamageBonuses": {
+                    "Physical": 3,
+                    "Life": 0,
+                    "Decay": 2,
+                    "Fire": 0,
+                    "Ice": 0
+                },
+                
+                "DefenseBonuses": {
+                    "Physical": 3,
+                    "Life": 0,
+                    "Decay": 1,
+                    "Fire": 0,
+                    "Ice": 1
+                },
+                "Rewards": ["Dark Trinket"]
+            },
+            {
                 "Type": "CompoundEncounter",
                 "Name": "Monster Group",
                 "Description": "It's a party in here!",
                 "Image": "Monsters",
-                "InDeck": 3,
+                "InDeck": 5,
                 "SubCards": 2,
                 "Rewards": ["Lg Potion","Ward of Fire"]
             }
@@ -182,7 +206,7 @@
                 "Name": "Orc",
                 "Description": "These humanoids are dim-witted but incredibly strong",
                 "Image": "Monster",
-                "InDeck": 6,
+                "InDeck": 13,
                 "Health": 12,
                 "DamageBonuses": {
                     "Physical": 6,
@@ -205,7 +229,7 @@
                 "Name": "Fire Elemental",
                 "Description": "A living flame.",
                 "Image": "Monster",
-                "InDeck": 6,
+                "InDeck": 11,
                 "Health": 14,
                 "DamageBonuses": {
                     "Physical": 2,
@@ -228,7 +252,7 @@
                 "Name": "Ice Serpent",
                 "Description": "It's a big snake and it's cold.",
                 "Image": "Monster",
-                "InDeck": 6,
+                "InDeck": 9,
                 "Health": 16,
                 "DamageBonuses": {
                     "Physical": 2,
@@ -425,6 +449,28 @@
                 "Life": 0,
                 "Decay": 0,
                 "Fire": 0,
+                "Ice": 0
+            }
+        },
+        {
+            "Name": "Dark Trinket",
+            "Description": "Protects your from life damage",
+            "SingleUse": false,
+            "Image": "Weapon",
+            "HealthBonus": 0,
+            "MaxCarried": 1,
+            "DamageBonuses": {
+                "Physical": 0,
+                "Life": 0,
+                "Decay": 0,
+                "Fire": 0,
+                "Ice": 0
+            },
+            "DefenseBonuses": {
+                "Physical": 1,
+                "Life": 3,
+                "Decay": 0,
+                "Fire": 1,
                 "Ice": 0
             }
         },

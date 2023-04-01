@@ -9,6 +9,7 @@ using System;
     Word wrap improvement.  Get a line counter so messages box heights fit.
     put names in more places.
     Show health during fight
+    Put fight in the "console" instead of notify.
     X Make deck bigger
     X Make more cards
     X Add a help spash screen
@@ -17,6 +18,7 @@ using System;
     X Tune/Balance game difficulty
 Wish list
     Item slots? Hand, Head, Feet etc...
+    Stack potions
     FINE tune game difficulty
     Hand limit?
     Put settings in a json file
@@ -63,7 +65,8 @@ class Program
         Console.SetCursorPosition(0, 15);
         Console.CursorVisible = true;
         Console.Write("How many players? ");
-        int players = Helpers.ReadInt();
+        //int players = Helpers.ReadInt();
+        int players = Helpers.ReadIntRange(2,4);
         for (int ctr = 0; ctr < players; ctr++)
         {
             Console.Write($"Player {ctr + 1} name? ");
