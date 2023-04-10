@@ -1,147 +1,149 @@
 public class TextImage
 {
-    private string[] _textArray;
+    private char[,] _charArray;
     private int _width, _height;
+    private int _termY;
     public TextImage(int width, int height)
     {
         _width = width;
         _height = height;
-        _textArray = new string[_height];
-        for (int y = 0; y < _height; y++)
-        {
-            _textArray[y] = "".PadLeft(_width, ' ');
-        }
+        _charArray = new char[_width, _height];
+        _termY = 0;
+        Clear();
     }
     public void DrawChar(char character, int x, int y)
     {
-        //_textArray[ty] = _textArray[ty].Remove(x, splitText[sy].Length); //take out
-        _textArray[y] = _textArray[y].Remove(x, 1);
-        _textArray[y] = _textArray[y].Insert(x, character.ToString()); //put in
-
-        if (_textArray[y].Length > _width)
+        if (x >= 0 && x < _width && y >= 0 && y < _height)
         {
-            _textArray[y] = _textArray[y].Substring(0, _width);
+            _charArray[x, y] = character;
         }
+    }
+    public void DrawTextLine(string textLine, int x, int y)
+    {
+        if (y >= 0 && y < _height)
+        {
+            textLine = textLine.Replace('\n', ' ');
+            for (int ix = 0; ix < textLine.Length; ix++)
+            {
+                if (ix >= 0 && ix < _width)
+                {
+                    _charArray[ix + x, y] = textLine[ix];
+                }
+            }
+        }
+    }
+    public void DrawVerticalLine(char character, int x, int y, int length)
+    {
+        if (x >= 0 && x < _width && length > 0)
+        {
+            for (int iy = y; iy < length + y; iy++)
+            {
+                if (iy >= 0 && iy < _height)
+                {
+                    _charArray[x, iy] = character;
+                }
+            }
+        }
+    }
+    public void DrawHorizontalLine(char character, int x, int y, int length)
+    {
+        if (y >= 0 && y < _height && length > 0)
+        {
+            for (int ix = x; ix < length + x; ix++)
+            {
+                if (ix >= 0 && ix < _width)
+                {
+                    _charArray[ix, y] = character;
+                }
+            }
+        }
+    }
+    public void DrawCard(int x, int y, int width, int height, Boolean stack = false)
+    {
+        for (int iy = 1; iy < height - 1; iy++)
+        {
+            for (int ix = 1; ix < width - 1; ix++)
+            {
+                DrawChar(' ', ix + x, iy + y);
+            }
+        }
+        DrawHorizontalLine('─', x + 1, y, width - 2);  //top
+        DrawHorizontalLine('─', x + 1, y + height - 1, width - 2); //bottom
+        DrawVerticalLine('│', x, y + 1, height - 2); //left
+        DrawVerticalLine('│', x + width - 1, y + 1, height - 2); //right
+        DrawChar('╭', x, y);
+        DrawChar('╮', x + width - 1, y);
+        DrawChar('╰', x, y + height - 1);
+        DrawChar('╯', x + width - 1, y + height - 1);
+    }
+    public void DrawHighlight(int x, int y, int width, int height, Boolean stack = false)
+    {
+        DrawHorizontalLine('═', x + 1, y, width - 2);  //top
+        DrawHorizontalLine('═', x + 1, y + height - 1, width - 2); //bottom
+        DrawVerticalLine('║', x, y + 1, height - 2); //left
+        DrawVerticalLine('║', x + width - 1, y + 1, height - 2); //right
+        DrawChar('╔', x, y);
+        DrawChar('╗', x + width - 1, y);
+        DrawChar('╚', x, y + height - 1);
+        DrawChar('╝', x + width - 1, y + height - 1);
     }
     public void Draw(string text, int x, int y)
     {
-        string[] splitText = text.Split("\n");
-        int ty = y; //Target y index
-        for (int sy = 0; sy < (splitText.Count() <= _height ? splitText.Count() : _height); sy++) //Source y index
+        if (x < _width && x + text.Length >= 0)
         {
-            if (ty > _textArray.Count()) //Break if target x exceeds target height
-                break;
-            if (ty >= 0 && ty < _textArray.Count()) //Only draw if index in range
+            string[] splitString = text.Split('\n');
+            for (int line = 0; line < splitString.Count(); line++)
             {
-                if (x < _width) //If it doesn't start outside width
+                if (line >= 0 && line < _height)
                 {
-                    //_textArray[ty] = _textArray[ty].Remove(x, splitText[sy].Length); //take out
-                    _textArray[ty] = _textArray[ty].Remove(x, (splitText[sy].Length + x < _width ? splitText[sy].Length : _width - x));
-                    _textArray[ty] = _textArray[ty].Insert(x, splitText[sy]); //put in
-                    if (_textArray[ty].Length > _width)
-                    {
-                        _textArray[ty] = _textArray[ty].Substring(0, _width);
-                    }
+                    DrawTextLine(splitString[line], x, line + y);
                 }
             }
-            ty++;
         }
     }
     public void Draw(TextImage image, int x, int y)
     {
         Draw(image.GetString(), x, y);
     }
-    public void DrawCard(int x, int y, int width, int height, Boolean stack = false)
+    public void TermWrite(string line)
     {
-        string img = "";
-        for (int ly = y; ly < y + height + 1; ly++)
+        string[] lines = line.Split('\n');
+        for (int ctr = 0; ctr < lines.Count(); ctr++)
         {
-            if (ly == y)
+            if (_termY >= _height - 1)
             {
-                //fist line
-                img += $"╭{"".PadLeft(width - 2, '─')}╮\n";
+                this.Draw(this.GetString(), 0, -1); //move up a line
+                _termY = _height - 1;
             }
-            else if (ly == y + height - 1)
-            {
-                //last line
-                img += $"╰{"".PadLeft(width - 2, '─')}╯";
-                if (stack)
-                {
-                    img += "│\n";
-                }
-                else
-                {
-                    img += "\n";
-                }
-            }
-            else if (ly == y + height)
-            {
-                //stack effect on bottom
-                if (stack)
-                {
-                    img += $" ╰{"".PadLeft(width - 2, '─')}╯";
-                }
-            }
-            else
-            {
-                //middle lines
-                img += $"│{"".PadLeft(width - 2, ' ')}";
-                if (stack)
-                {
-                    if (ly == y + 1)
-                    {
-                        img += "├╮\n";
-                    }
-                    else
-                    {
-                        img += "││\n";
-                    }
-                }
-                else
-                {
-                    img += "│\n";
-                }
-            }
-        }
-        Draw(img, x, y);
-    }
+            this.DrawTextLine(lines[ctr], 0, _termY);
+            _termY++;
 
-    public void DrawHighlight(int x, int y, int width, int height, Boolean stack = false)
-    {
-        for (int ly = y; ly < y + height; ly++)
-        {
-            if (ly == y)
-            {
-                //fist line
-                DrawChar('╔', x, ly);
-                Draw("".PadLeft(width - 2, '═'), x+1, ly);
-                DrawChar('╗', x + width-1, ly);
-            }
-            else if (ly == y + height - 1)
-            {
-                //last line
-                DrawChar('╚', x, ly);
-                Draw("".PadLeft(width - 2, '═'), x+1, ly);
-                DrawChar('╝', x + width-1, ly);
-            }
-            else
-            {
-                //middle lines
-                DrawChar('║', x, ly);
-                DrawChar('║', x + width-1, ly);
-            }
         }
     }
-
     public string GetString()
     {
-        return string.Join("\n", _textArray);
+        string returnString = "";
+        for (int y = 0; y < _height; y++)
+        {
+            for (int x = 0; x < _width; x++)
+            {
+                returnString += _charArray[x, y];
+            }
+            returnString += "\n";
+        }
+        return returnString.Substring(0, returnString.Length - 1);
+
     }
     public void Clear()
     {
-        for (int iy = 0; iy < _height; iy++)
+        _termY = 0;
+        _charArray = new char[_width, _height];
+        for (int y = 0; y < _height; y++)
         {
-            _textArray[iy] = "".PadLeft(_width, ' ');
+            for (int x = 0; x < _width; x++)
+            {
+                _charArray[x, y] = ' ';
+            }
         }
     }
 }

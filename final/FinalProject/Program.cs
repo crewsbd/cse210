@@ -66,7 +66,7 @@ class Program
         Console.CursorVisible = true;
         Console.Write("How many players? ");
         //int players = Helpers.ReadInt();
-        int players = Helpers.ReadIntRange(2,4);
+        int players = Helpers.ReadIntRange(2, 4);
         for (int ctr = 0; ctr < players; ctr++)
         {
             Console.Write($"Player {ctr + 1} name? ");

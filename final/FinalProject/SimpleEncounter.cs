@@ -31,8 +31,11 @@ class SimpleEncounter : Encounter
     public override Boolean Run(Player player, TextImage screen)
     {
         string originalBuffer = screen.GetString();
+        TextImage lineDisplay = new TextImage(38, 18);
         screen.DrawCard(2, 2, 40, 20);
-        screen.Draw($"You attack the {_name} ⤷", 3, 3);
+
+        lineDisplay.TermWrite($"You attack the {_name} ⤷");
+        screen.Draw(lineDisplay, 3, 3);
         Update(screen);
         Console.ReadKey();
 
@@ -75,8 +78,8 @@ class SimpleEncounter : Encounter
                     }
                     else //draw Confirm selection
                     {
-                        screen.DrawCard(focusedCard * 9, 18, 11, 4);
-                        screen.Draw("Confirm\nSelection", focusedCard * 9 + 1, 19);
+                        screen.DrawCard(c * 9 + 1, 18, 11, 4);
+                        screen.Draw("Confirm\nSelection", c * 9 + 2, 19);
 
                         /*screen.DrawCard(c * 9 + 1, 17, 10, 4);
                         screen.Draw("Confirm\nSelection", c * 9 + 2, 19); */
@@ -95,7 +98,7 @@ class SimpleEncounter : Encounter
                 }
                 else //Or focused confirm selection...larger
                 {
-                    screen.DrawCard(focusedCard * 9, 17, 11, 6);
+                    screen.DrawCard(focusedCard * 9, 17, 12, 6);
                     screen.Draw("Confirm\nSelection", focusedCard * 9 + 1, 19);
                 }
 
@@ -160,11 +163,14 @@ class SimpleEncounter : Encounter
                 pDMG += Math.Max(0, dmgBonus["Ice"] - _defenseBonuses["Ice"]);
                 pDMG = Math.Max(1, pDMG); //Always at least 1 damage;
                 eHealth -= pDMG;
-                Helpers.Notify($"{player.Name()} did {pDMG} to the {_name}", screen);
+
+                lineDisplay.TermWrite($"{player.Name()} did {pDMG} to the {_name}");
+
                 if (eHealth <= 0)
                 {
                     continueFight = false;
                 }
+
             }
             else //Encounter turn
             {
@@ -175,17 +181,24 @@ class SimpleEncounter : Encounter
                 eDMG += Math.Max(0, _damageBonuses["Ice"] - defBonus["Ice"]);
                 eDMG = Math.Max(1, eDMG); //At least 1 damage
                 player.InflictDamage(eDMG);
-                Helpers.Notify($"The {_name} did {eDMG} to {player.Name()}", screen);
+
+                lineDisplay.TermWrite($"The {_name} did {eDMG} to {player.Name()}");
+
                 if (player.IsDead())
                 {
                     continueFight = false;
                 }
             }
+            screen.Draw(lineDisplay, 3, 3);
+            Update(screen);
+            Thread.Sleep(1200);
+
             playerTurn = !playerTurn; //Toggle player and encounter
         } while (continueFight);
         player.RemoveHealthBoost(); //Remove any benefits of potions
         if (!player.IsDead()) //Player is victorious
         {
+            Helpers.Notify($"{player.Name()} defeated the {_name}", screen);
             player.GiveItems(_rewards);
             return true;
         }
